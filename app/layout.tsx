@@ -27,6 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      
       <body className={`${inter.variable} ${spaceMono.variable} font-sans`}>{children}</body>
     </html>
   )

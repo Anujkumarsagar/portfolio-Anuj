@@ -14,11 +14,14 @@ import {
   ArrowLeft,
   ChevronRight,
   Download,
+  X,
+  Redo,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { ArticlesCard } from "@/components/cards/ArticalsCard";
 import ArticlesSlider from "@/components/cards/ArticlesSlider";
 import { title } from "process";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const circleRef = useRef<HTMLDivElement | null>(null);
@@ -30,7 +33,7 @@ export default function Home() {
 
     setIsAnimating((prev) => {
       const newState = !prev;
-      circleRef.current?.classList.add("fixed");
+      circleRef.current?.classList.toggle("fixed", newState);
       circleRef.current?.classList.toggle("circle-animate", newState);
 
       if (newState) {
@@ -49,29 +52,46 @@ export default function Home() {
     <main className=" text-white min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Main Header Section */}
-        <section className="main-section relative p-6 md:p-10 rounded-3xl overflow-hidden section-gradient">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="main-section relative p-6 md:p-10 rounded-3xl overflow-hidden section-gradient"
+        >
           <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
 
           <header className="relative flex justify-between items-center mb-10">
-            <div>
+            <Link href={"/"} className="cursor-cell">
               <h2 className="font-mono text-lg border border-white px-3 py-1 rounded-full">
                 Anuj.Kumar
               </h2>
-            </div>
+            </Link>
             <nav className="hidden md:flex space-x-6">
-              <Link href="#about" className="hover:text-gray-300 transition-colors">
-                About
-              </Link>
-              <Link href="#projects" className="hover:text-gray-300 transition-colors">
-                Projects
-              </Link>
-              <Link href="#articles" className="hover:text-gray-300 transition-colors">
-                Articles
-              </Link>
-              <Link href="#contacts" className="hover:text-gray-300 transition-colors">
-                Contacts
-              </Link>
+              <div className="relative inline-flex group">
+                <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                <Link href="#about" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                  About
+                </Link>
+              </div>
+              <div className="relative inline-flex group">
+                <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                <Link href="#project" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                  Project
+                </Link>
+              </div>
+              <div className="relative inline-flex group">
+                <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                <Link href="/articles" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                  Articles
+                </Link>
+              </div>
+              <div className="relative inline-flex group">
+                <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                <Link href="#contacts" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                  Contacts
+                </Link>
+              </div>
             </nav>
             <div className="z-20 flex items-center space-x-2">
               <span>En</span>
@@ -100,169 +120,544 @@ export default function Home() {
                   <line x1="4" x2="20" y1="18" y2="18" />
                 </svg>
               </button>
-              <div ref={circleRef} className="circle-mobile-nav sm:hidden md:hidden">
-                {showLinks && (
-                  <div className="flex items-center justify-center h-full w-full bg-black">
-                    <nav className="flex flex-col items-center">
-                      <Link href="#about" className="text-white mb-2">About</Link>
-                      <Link href="#projects" className="text-white mb-2">Projects</Link>
-                      <Link href="#articles" className="text-white mb-2">Articles</Link>
-                      <Link href="#contacts" className="text-white">Contacts</Link>
-                    </nav>
-                  </div>
-                )}
+              <div ref={circleRef} className="circle-mobile-nav relative sm:hidden md:hidden">
               </div>
+              {showLinks && (
+                <div className="fixed font-bungee fade-in inset-0 bg-[#010101] z-30 flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out">
+                  <button
+                    onClick={handleMobileNav}
+                    className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+                  >
+                    <X size={24} />
+                  </button>
+                  <nav className="bg-gray-900 p-24 rounded-3xl flex flex-col space-y-4 transition-all duration-500 ease-in-out transform">
+                    <Link
+                      href="#about"
+                      onClick={handleMobileNav}
+                      className="relative inline-flex group w-full"
+                    >
+                      <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                      <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                        1. About
+                      </span>
+                    </Link>
+                    <Link
+                      href="#projects"
+                      onClick={handleMobileNav}
+                      className="relative inline-flex group w-full"
+                    >
+                      <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                      <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                        2. Projects
+                      </span>
+                    </Link>
+                    <Link
+                      href="/articles"
+                      onClick={handleMobileNav}
+                      className="relative inline-flex group w-full"
+                    >
+                      <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                      <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                        3. Articles
+                      </span>
+                    </Link>
+                    <Link
+                      href="#contacts"
+                      onClick={handleMobileNav}
+                      className="relative inline-flex group w-full"
+                    >
+                      <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                      <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                        4. Contacts
+                      </span>
+                    </Link>
+                  </nav>
+                </div>
+              )}
             </div>
           </header>
 
           {/* Hero  */}
-          <div className=" hero bg-black lg:grid lg:grid-cols-2 lg:gap-10">
+          <div className=" hero bg-black-[80%] lg:grid lg:grid-cols-2 lg:gap-10">
+
+            <Image
+              src="../assets/png/image.png"
+              alt="Developer photo"
+              width={800}
+              height={800}
+
+              className="absolute  md:absolute top-20 left-0 "
+            />
+
             <div className="">
-              <h1 className="text-5xl md:text-6xl font-mono mb-9">
+              <h1 className="text-5xl font-bungee md:text-6xl font-mono mb-9">
                 <p>Full-stack</p>
                 <p>Developer</p>
               </h1>
 
-              <p className="text-gray-500 text-lg mb-6">
+              <p className=" relative text-opacity-5 text-lg mb-6">
                 My goal is to{" "}
-                <span className="font-medium text-gray-100 italic">
+                <span className="font-medium animate-pulse text-white italic">
                   write maintainable, clean and understandable code
                 </span>{" "}
                 to process development was enjoyable.
               </p>
-              <div className="mb-8 flex">
+              <div className="mb-8 flex gap-4 relative items-center gap-4">
                 <Link
                   href="#projects"
-                  className="inline-flex items-center bg-white text-black rounded-full px-16 py-6 font-medium text-lg"
+                  className=" cursor-cell items-center bg-white text-black rounded-full px-16 py-6 font-medium text-lg hover:bg-gray-100 transition-colors"
                 >
                   Projects
                 </Link>
-                <Download size={36} color="#0000" className="bg-white" />
+                <a target="_blank"
+                  download
+                  onclick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1hO_h8MM28vsaltj92tY-nUnY7T2RReEV/view?usp=drive_link" download="Anujkumar_Resume_FullStack_2025.pdf">
+                  <Download size={30} color="black" className="bg-white rounded-full scale-150  cursor-cell p-2" />
+                </a>
               </div>
-              <div className="flex space-x-4 mb-10">
-                <Link href="https://github.com/Anujkumarsagar" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Github className="w-5 h-5" />
+              <span className="absolute top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
+                <Link href="https://github.com/Anujkumarsagar" className="relative inline-flex group mb-4">
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <Github className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                 </Link>
-                <Link href="https://linkedin.com/in/Anujkumarsagar" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Linkedin className="w-5 h-5" />
+                <Link href="https://linkedin.com/in/Anujkumarsagar" className="relative inline-flex group mb-4">
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <Linkedin className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                 </Link>
-                <Link href="mailto:anujkumarsagar62@gmail.com" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Mail className="w-5 h-5" />
+                <Link href="mailto:anujkumarsagar62@gmail.com" className="relative inline-flex group mb-4">
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <Mail className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                 </Link>
-                <Link href="https://t.me/SoftwareEngineer6" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Telegram className="w-5 h-5" />
+                <Link href="https://t.me/SoftwareEngineer6" className="relative inline-flex group mb-4">
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <Telegram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                 </Link>
-                <Link href="https://www.instagram.com/2_._anuj_._2/" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Instagram className="w-5 h-5" />
+                <Link href="https://www.instagram.com/2_._anuj_._2/" className="relative inline-flex group">
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <Instagram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                 </Link>
-
-
-              </div>
+              </span>
             </div>
 
           </div>
-          <Image
-            src="../assets/png/image.png"
-            alt="Developer photo"
-            width={800}
-            height={800}
-            className="absolute md:absolute top-20 left-30 "
-          />
+
+          <div className="my-4 md:hidden flex items-end justify-between  h-32 relative">
+            <h1 className="text-7xl font-bungee">Link</h1>
+            <Redo size={100} className="absolute -rotate-45 right-[25%] top-[2%]  bottom-0" />
+          </div>
+
           <Image
             src="./assets/png/14.png"
             alt="Developer photo"
             width={800}
             height={800}
-            className="rounded-3xl  z-0 filter-blur-xl md:absolute top-20   animate-spin right-0 m-auto "
+            className="rounded-3xl  -z-1 filter-blur-xl md:absolute top-20   animate-spin right-0 m-auto "
           />
-        </section>
+        </motion.section>
 
-        {/* Articles Slider Section */}
-        <section className="p-6 md:p-10 section-gradient">
-          <ArticlesSlider />
-        </section>
+        <div className="bg-black">
+          {/* Articles Slider Section */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="p-6 md:p-10 section-gradient"
+          >
+            <ArticlesSlider />
+          </motion.section>
 
-        {/* About Me Section */}
-        <section id="about" className="p-6 md:p-10 section-gradient">
-          {/* <h3 className="text-gray-400 mb-4">... /About me ...</h3> */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-10">
-            <div>
-            <h2 className="text-5xl md:text-6xl font-mono mb-10 text-right">About</h2>
-              <p className="mb-4">
-                Hello! <span className="font-bold italic">I'm Anuj</span>, I'm a <span className="font-bold italic">full-stack developer</span>.<br />
-                With Expertise <span className="font-medium">Many other fields</span>.
-              </p>
+          {/* About Me Section */}
+          <motion.section
+            id="about"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="p-6 md:p-10 section-gradient"
+          >
+            <div className="lg:grid lg:grid-cols-2 lg:gap-10">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <h2 className="text-5xl md:text-6xl font-bungee mb-10 text-right">About</h2>
+                <p className="mb-4">
+                  Hello! <span className="font-bold font-bungee">I'm Anuj</span>, I'm a <span className="font-bold italic">full-stack developer</span>.<br />
+                  With Expertise <span className="font-medium">Many other fields</span>.
+                </p>
 
-              <div className="mt-8 mb-6">
-                <div className="bg-gray-900 rounded-3xl p-4 mb-4">
-                  <h4 className="font-medium mb-2">Front-end</h4>
-                  <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                    <span>TypeScript</span> / <span>React</span> /{" "}
-                    <span>Redux Toolkit</span> / <span>NextJs</span> / <span>Flask</span> / <span>Jest</span> /{" "}
-                    <span>GraphQL</span> / <span>Recoil</span> / <span>Python</span>
+                <div className="mt-8 mb-6">
+                  <div className="bg-gray-900 rounded-3xl p-4 mb-4">
+                    <h4 className="font-medium font-bungee mb-2">Front-end</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">TypeScript</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">React</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Redux Toolkit</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.7 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">NextJs</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.9 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Flask</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Jest</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.3 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">GraphQL</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.5 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Recoil</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.7 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Python</span>
+                      </motion.span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="bg-gray-900 rounded-3xl p-4 mb-4">
-                  <h4 className="font-medium mb-2">Styles</h4>
-                  <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                    <span>CSS</span> / <span>Tailwind CSS</span> / <span>PostCSS</span>
+                  <div className="bg-gray-900 rounded-3xl p-4 mb-4">
+                    <h4 className="font-medium font-bungee mb-2">Styles</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">CSS</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Tailwind CSS</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">PostCSS</span>
+                      </motion.span>
+                    </div>
                   </div>
-                  {/* <div className="flex items-center justify-end mt-2">
-                    <div className="w-4 h-4 bg-white rounded-full mr-1"></div>
-                    <div className="w-4 h-4 bg-gray-700 rounded-full"></div>
-                  </div> */}
-                </div>
 
-                <div className="bg-gray-900 rounded-3xl p-4 mb-4">
-                  <h4 className="font-medium mb-2">Back-end</h4>
-                  <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                    <span>Prisma</span> / <span>PostgreSQL</span> /{" "}
-                    <span>MySQL</span> / <span>MongoDB</span> / <span>gRPC</span> / <span>Redis</span> /{" "}
-                    <span>Kafka</span> / <span>Node</span> / <span>Nest</span> / <span>TypeORM</span> /{" "}
-                    <span>Microservices</span>
+                  <div className="bg-gray-900 rounded-3xl p-4 mb-4">
+                    <h4 className="font-medium font-bungee mb-2">Back-end</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Prisma</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">PostgreSQL</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">MySQL</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.7 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">MongoDB</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.9 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">gRPC</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Redis</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.3 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Kafka</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.5 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Node</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.7 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Nest</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.9 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">TypeORM</span>
+                      </motion.span>
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 2.1 }}
+                        className="relative inline-flex group"
+                      >
+                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                        <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Microservices</span>
+                      </motion.span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="bg-gray-900 rounded-3xl p-4">
-                  <div className="flex justify-between">
-                    <div>
-                      <h4 className="font-medium mb-2">DevOps</h4>
-                      <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                        <span>Nginx</span> / <span>Ansible</span> / <span>Docker</span> / <span>(CI/CD)</span> /{" "}
-                        <span>k8s</span> / <span>Bash</span>
+                  <div className="bg-gray-900 rounded-3xl p-4">
+                    <div className="flex justify-between">
+                      <div>
+                        <h4 className="font-medium font-bungee mb-2">DevOps</h4>
+                        <div className="flex flex-wrap gap-2">
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Nginx</span>
+                          </motion.span>
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Ansible</span>
+                          </motion.span>
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Docker</span>
+                          </motion.span>
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.7 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">(CI/CD)</span>
+                          </motion.span>
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.9 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">k8s</span>
+                          </motion.span>
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 1.1 }}
+                            className="relative inline-flex group"
+                          >
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Bash</span>
+                          </motion.span>
+                        </div>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-400">
-                      Some of my favorite technologies, topics, or tools that I worked with
-                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mt-6 lg:mt-0"
+              >
+                <div className="relative w-full md:top-10 aspect-square max-w-[400px] mx-auto">
+                  <Image
+                    src="../assets/projects/personal.png"
+                    alt="Developer photo"
+                    width={400}
+                    height={400}
+                    className="rounded-3xl object-cover"
+                  />
+                </div>
+              </motion.div>
             </div>
 
-            <div className="mt-6 lg:mt-0">
-              <div className="relative w-full md:top-10 aspect-square max-w-[400px] mx-auto">
-                <Image
-                    src="../assets/projects/personal.png"
-                  alt="Developer photo"
-                  width={400}
-                  height={400}
-                  className="rounded-3xl object-cover"
-                />
+            {/* <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-8"
+            >
+              <div className="relative w-full aspect-video rounded-3xl overflow-hidden">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7322701550118719488" height="718" width="504" frameBorder="0" allowFullScreen title="Embedded post"></iframe>
               </div>
-            </div>
-          </div>
-        </section>
+            </motion.div> */}
+          </motion.section>
+        </div>
 
         {/* Work Experience Section */}
-        <section id="work" className="p-6 md:p-10 section-gradient">
-          <h2 className="text-5xl md:text-6xl font-mono mb-10">Work</h2>
+        <motion.section
+          id="work"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="p-6 md:p-10 section-gradient"
+        >
+          <h2 className="text-5xl md:text-6xl font-bungee mb-10">Work</h2>
 
           <div className="border-y border-gray-800">
             <div className="py-4 grid grid-cols-[1fr_1fr_1fr] gap-4">
               <div>
-                <p className="text-sm">2024 - present</p>
+                <p className="text-sm">Nov 2024 - Apr 2025</p>
                 <p className="text-xs text-gray-500"> 6 months</p>
               </div>
               <div>
@@ -286,24 +681,85 @@ export default function Home() {
             <p className="text-gray-400">Proffesional Work experience</p>
             <p className="font-medium">6 months</p>
           </div>
-        </section>
+        </motion.section>
 
         {/* Projects Section */}
-        <section id="projects" className="p-6 md:p-10 section-gradient">
-          <h2 className="text-5xl md:text-6xl font-mono mb-10 text-right">Projects</h2>
+        <motion.section
+          id="projects"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="p-6 md:p-10 section-gradient"
+        >
+          <h2 className="text-5xl md:text-6xl font-bungee mb-10 text-right">Projects</h2>
 
 
           {/* Recipe Sharing App Project */}
           <div className="mb-16 bg-black/15">
             <div className="mb-4">
-              <h3 className="font-medium underline pb- md:text-lg mb-2">Recipe Sharing App</h3>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-400 mb-4">
-                <span className="bg-gray-900 px-2 py-1 rounded-full">MongoDB</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">TypeScript</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">React Js</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Express</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Redux</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Tailwind Css</span>
+              <h3 className="font-medium font-bungee underline pb- md:text-lg mb-2">Recipe Sharing App</h3>
+              <div className="flex flex-wrap gap-2 text-xs text-white mb-4">
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">MongoDB</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">TypeScript</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">React Js</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Express</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Redux</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 1.1 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Tailwind Css</span>
+                </motion.span>
               </div>
 
               <p className="text-sm  text-gray-400 mb-2">
@@ -350,14 +806,68 @@ export default function Home() {
           {/* TeraMovies Project */}
           <div className="mb-16">
             <div className="mb-4">
-              <h3 className="font-medium mb-2 underline">Tera Movies</h3>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-400 mb-4">
-                <span className="bg-gray-900 px-2 py-1 rounded-full">TypeScript</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">NextJs</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Redux Toolkit</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Firebase </span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">Postgres</span>
-                <span className="bg-gray-900 px-2 py-1 rounded-full">TMDB API</span>
+              <h3 className="font-medium font-bungee mb-2 underline">Tera Movies</h3>
+              <div className="flex flex-wrap gap-2 text-xs text-white mb-4">
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">TypeScript</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">NextJs</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Redux Toolkit</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Firebase</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">Postgres</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 1.1 }}
+                  className="relative inline-flex group"
+                >
+                  <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                  <span className="relative text-xs text-white px-3 py-1 bg-gray-900 rounded-full">TMDB API</span>
+                </motion.span>
               </div>
 
               <p className="text-sm text-gray-400 mb-2">
@@ -426,11 +936,18 @@ export default function Home() {
           </div>
 
 
-        </section>
+        </motion.section>
 
         {/* Articles Section */}
-        <section id="articles" className="p-6 md:p-10 section-gradient">
-          <h2 className="text-5xl md:text-6xl font-mono mb-10">Articles</h2>
+        <motion.section
+          id="articles"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="p-6 md:p-10 section-gradient"
+        >
+          <h2 className="text-5xl md:text-6xl font-bungee mb-10">Articles</h2>
 
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -439,15 +956,22 @@ export default function Home() {
 
           </div>
 
-        </section>
+        </motion.section>
 
         {/* Contacts Section */}
-        <section id="contacts" className="p-6 md:p-10 section-gradient">
-          <h2 className="text-5xl md:text-6xl font-mono mb-10 text-right">Contact</h2>
+        <motion.section
+          id="contacts"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="p-6 md:p-10 section-gradient"
+        >
+          <h2 className="text-5xl md:text-6xl font-bungee mb-10 text-right">Contact</h2>
 
           <div className="lg:grid lg:grid-cols-2 lg:gap-10">
             <div>
-              <h2 className="text-5xl md:text-6xl font-mono mb-4">
+              <h2 className="text-4xl md:text-6xl font-bungee mb-4">
                 Anuj
                 <br />
                 Kumar
@@ -459,31 +983,81 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-10">
-                <Link href="https://github.com/Anujkumarsagar" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Github className="w-5 h-5" />
-                </Link>
-                <Link href="https://linkedin.com/in/Anujkumarsagar" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Linkedin className="w-5 h-5" />
-                </Link>
-                <Link href="mailto:anujkumarsagar62@gmail.com" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Mail className="w-5 h-5" />
-                </Link>
-                <Link href="https://t.me/SoftwareEngineer6" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Telegram className="w-5 h-5" />
-                </Link>
-                <Link href="https://www.instagram.com/2_._anuj_._2/" className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
-                  <Instagram className="w-5 h-5" />
-                </Link>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="https://github.com/Anujkumarsagar" className="relative inline-flex group mb-4">
+                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <Github className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="https://linkedin.com/in/Anujkumarsagar" className="relative inline-flex group mb-4">
+                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <Linkedin className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="mailto:anujkumarsagar62@gmail.com" className="relative inline-flex group mb-4">
+                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <Mail className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="https://t.me/SoftwareEngineer6" className="relative inline-flex group mb-4">
+                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <Telegram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="https://www.instagram.com/2_._anuj_._2/" className="relative inline-flex group">
+                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <Instagram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
+                  </Link>
+                </motion.div>
               </div>
             </div>
 
             <div className="mt-6 lg:mt-0">
               <div className="flex justify-end mb-6">
-                <nav className="flex space-x-6">
+                <nav className="flex gap-2 font-bungee">
                   <Link href="#" className="hover:text-gray-300 transition-colors">
                     Main
                   </Link>
-                  <Link href="#about" className="hover:text-gray-300 transition-colors">
+                  <Link href="#about" className=" hover:text-gray-300 transition-colors">
                     About
                   </Link>
                   <Link href="#projects" className="hover:text-gray-300 transition-colors">
@@ -503,7 +1077,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );

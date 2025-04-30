@@ -2,16 +2,13 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ArticlesCard } from "./ArticalsCard";
+import { articles } from "@/data/articles";
+
 
 const ArticlesSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   // Define your articles data
-  const articles = [
-    { title: "The simplest example is kafka + golang", description: "This article presents a simple way to implement ." },
-    { title: "Another Article Title", description: "Description for another article." },
-    { title: "Yet Another Article Title", description: "Description for yet another article." }
-  ];
 
   const nextArticle = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % articles.length);
