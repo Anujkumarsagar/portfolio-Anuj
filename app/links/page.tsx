@@ -35,7 +35,7 @@ export default function LinksPage() {
     selectedCategory === "all" ? allLinks : allLinks.filter((link) => link.category === selectedCategory)
 
   return (
-    <Suspense unstable_expectedLoadTime={} fallback={<Loading />}>
+    <Suspense unstable_expectedLoadTime={200} fallback={<Loading />}>
       <div className="min-h-screen  bg-black text-white">
 
 
