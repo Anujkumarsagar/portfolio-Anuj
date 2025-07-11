@@ -16,12 +16,14 @@ import {
   Download,
   X,
   Redo,
+  GithubIcon,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { ArticlesCard } from "@/components/cards/ArticalsCard";
 import ArticlesSlider from "@/components/cards/ArticlesSlider";
 import { title } from "process";
 import { motion } from "framer-motion";
+import Loading from "./loading";
 
 export default function Home() {
   const circleRef = useRef<HTMLDivElement | null>(null);
@@ -49,7 +51,8 @@ export default function Home() {
   }
 
   return (
-    <main className=" text-white min-h-screen">
+   <Suspense fallback={<Loading />}>
+     <main className=" text-white min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Main Header Section */}
         <motion.section
@@ -84,6 +87,12 @@ export default function Home() {
                 <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
                 <Link href="/articles" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
                   Articles
+                </Link>
+              </div>
+              <div className="relative inline-flex group">
+                <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                <Link href="/links" className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                  Links
                 </Link>
               </div>
               <div className="relative inline-flex group">
@@ -171,6 +180,16 @@ export default function Home() {
                         4. Contacts
                       </span>
                     </Link>
+                    <Link
+                      href="/links"
+                      onClick={handleMobileNav}
+                      className="relative inline-flex group w-full"
+                    >
+                      <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                      <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                        4. Links
+                      </span>
+                    </Link>
                   </nav>
                 </div>
               )}
@@ -185,6 +204,7 @@ export default function Home() {
               alt="Developer photo"
               width={800}
               height={800}
+              loading="eager"
 
               className="absolute  md:absolute top-20 left-0 "
             />
@@ -211,7 +231,7 @@ export default function Home() {
                 </Link>
                 <a target="_blank"
                   download
-                  onclick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1hO_h8MM28vsaltj92tY-nUnY7T2RReEV/view?usp=drive_link" download="Anujkumar_Resume_FullStack_2025.pdf">
+                  onclick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1kAfuAcKr56pYBnMMXgMy2fYCZM-2cIlC/view" download="Anujkumar_Resume_FullStack_2025.pdf">
                   <Download size={30} color="black" className="bg-white rounded-full scale-150  cursor-cell p-2" />
                 </a>
               </div>
@@ -251,6 +271,7 @@ export default function Home() {
             alt="Developer photo"
             width={800}
             height={800}
+            loading="eager"
             className="rounded-3xl  -z-1 filter-blur-xl md:absolute top-20   animate-spin right-0 m-auto "
           />
         </motion.section>
@@ -623,6 +644,7 @@ export default function Home() {
                     alt="Developer photo"
                     width={400}
                     height={400}
+                    loading="lazy"
                     className="rounded-3xl object-cover"
                   />
                 </div>
@@ -778,6 +800,7 @@ export default function Home() {
                   alt="Gostat project screenshot"
                   width={400}
                   height={100}
+                  loading="lazy"
                   className="rounded-xl object-cover w-full p-2 h-auto"
                 />
                 <div className="absolute bottom-4 right-4 bg-gray-900 p-2 rounded-full">
@@ -790,6 +813,7 @@ export default function Home() {
                   alt="Gostat project screenshot"
                   width={600}
                   height={300}
+                  loading="lazy"
                   className="rounded-xl object-cover w-full h-auto"
                 />
               </div>
@@ -798,7 +822,11 @@ export default function Home() {
 
             <div className="flex justify-center">
               <div className="bg-gray-900 p-2 rounded-full">
-                <ChevronRight href="https://recipe-sharing-app-6b5v.onrender.com/" className="w-4 h-4" />
+                <ChevronRight href="https://recipe-sharing-app-6b5v.onrender.com/" className="cursor-pointer w-4 h-4" />
+              </div>
+              <div className="bg-gray-900 p-2 rounded-full">
+                
+                <GithubIcon className="cursor-pointer w-4 h-4" href="https://github.com/Anujkumarsagar/Recipe-Sharing-app"/>
               </div>
             </div>
           </div>
@@ -887,6 +915,7 @@ export default function Home() {
                   src="../assets/projects/teramovies1.png"
                   alt="Kana Master project screenshot"
                   width={300}
+                  loading="lazy"
                   height={300}
                   className="rounded-xl object-cover w-full h-auto"
                 />
@@ -903,6 +932,7 @@ export default function Home() {
                   src="../assets/projects/teramovies3.png"
                   alt="Kana Master project screenshot"
                   width={150}
+                  loading="lazy"
                   height={150}
                   className="rounded-xl object-cover w-full h-auto"
                 />
@@ -910,6 +940,7 @@ export default function Home() {
                   src="../assets/projects/teramovies4.png"
                   alt="Kana Master project screenshot"
                   width={150}
+                  loading="lazy"
                   height={150}
                   className="rounded-xl object-cover w-full h-auto"
                 />
@@ -919,6 +950,7 @@ export default function Home() {
                     alt="Kana Master project screenshot"
                     width={150}
                     height={150}
+                    loading="lazy"
                     className="rounded-xl object-cover w-full h-auto"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
@@ -931,6 +963,9 @@ export default function Home() {
             <div className="flex justify-center">
               <div className="bg-gray-900 p-2 rounded-full">
                 <a href="https://oneteramovies.netlify.app"><ChevronRight className="w-4 h-4" /></a>
+              </div>
+              <div className="bg-gray-900 p-2 rounded-full">
+                <GithubIcon href="https://github.com/Anujkumarsagar/TeraMovies" className="w-4 h-4" />
               </div>
             </div>
           </div>
@@ -1066,6 +1101,9 @@ export default function Home() {
                   <Link href="#articles" className="hover:text-gray-300 transition-colors">
                     Articles
                   </Link>
+                  <Link href="/links" className="hover:text-gray-300 transition-colors">
+                    Links
+                  </Link>
                 </nav>
               </div>
 
@@ -1080,5 +1118,6 @@ export default function Home() {
         </motion.section>
       </div>
     </main>
+   </Suspense>
   );
 }

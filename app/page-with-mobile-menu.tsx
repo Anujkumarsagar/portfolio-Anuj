@@ -16,9 +16,9 @@ export default function MobileNav() {
         <header className="flex justify-between items-center p-6">
           <div>
             <h2 className="font-mono">
-              Nikita
+              Anuj
               <br />
-              Khvatov
+              Kumar
             </h2>
           </div>
           <nav className="hidden md:flex space-x-6">
@@ -28,11 +28,14 @@ export default function MobileNav() {
             <Link href="#projects" className="hover:text-gray-300 transition-colors">
               Projects
             </Link>
-            <Link href="#articles" className="hover:text-gray-300 transition-colors">
+            <Link href="/articles" className="hover:text-gray-300 transition-colors">
               Articles
             </Link>
             <Link href="#contacts" className="hover:text-gray-300 transition-colors">
               Contacts
+            </Link>
+            <Link href="/links" className="hover:text-gray-300 transition-colors">
+              Links
             </Link>
           </nav>
           <div className="flex items-center space-x-2">

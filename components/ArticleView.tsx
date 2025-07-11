@@ -41,7 +41,7 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
         <p className="text-xl text-gray-300 mb-8">{article.description}</p>
 
         <div
-          className="border-t border-gray-800 pt-8 prose-headings:font-bungee prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-ol:text-gray-300"
+          className="border-t overflow-x-auto border-gray-800  pt-8 prose-headings:font-bungee prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-ol:text-gray-300"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </article>
@@ -54,7 +54,7 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
         className="mt-8"
       >
         <div className="relative w-full  rounded-3xl overflow-hidden">
-        <iframe src={`${article.embedurl}`} height="718" width="504" frameborder="0" allowfullscreen="true" title="Embedded post"></iframe>
+        <iframe src={`${article.embedurl}`} height="718" width="504" frameborder="1" allowfullscreen="true" title="Embedded post"></iframe>
          </div>
       </motion.div>
     </motion.div>

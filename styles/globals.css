@@ -188,3 +188,11 @@ section {
 .section-gradient {
   background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
+
+code{
+  overflow-x: auto;
+  width: 100%;
+
+  background-color: white;
+  color: black;
+}

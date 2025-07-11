@@ -36,7 +36,7 @@ export const articles: Article[] = [
       <p>Use Redis for chat systems or live notifications by leveraging its Pub/Sub features.</p>
 
       <h3>📋 Queues: Task Scheduling</h3>
-      <pre><code>async function enqueue(data) {
+      <pre class="w-full" ><code class=" overflow-x-auto" >async function enqueue(data) {
   await redis.lpush('myQueue', JSON.stringify(data));
 }
 
@@ -94,29 +94,35 @@ async function dequeue() {
       <p>Compression boosts performance by reducing payload sizes. One of the easiest ways to implement this is using the <code>compression</code> middleware in Express.</p>
 
       <h3>🧪 Example: Basic GZIP Compression</h3>
-      <pre><code>const compression = require('compression');
-const express = require('express');
-const app = express();
-
-app.use(compression());</code></pre>
+      <pre>
+      <code>const compression = require('compression');
+          const express = require('express');
+          const app = express();
+          app.use(compression());
+        </code>
+      </pre>
 
       <h2>🧠 Enter Brotli: Better Than GZIP</h2>
       <p>Brotli is a modern compression algorithm developed by Google that provides better compression ratios than GZIP. It uses LZ77, Huffman coding, and 2nd-order context modeling to reduce file size efficiently.</p>
 
       <h3>⚙️ Advanced Compression Setup</h3>
-      <pre><code>app.use(compression({
-  br: { quality: 11 }, // Enable Brotli compression with max quality
-  filter: shouldCompress,
-  threshold: 1024, // Compress only if body is > 1KB
-  memLevel: 9 // Max memory level for zlib
-}));
+      <pre>
+        <code>
+        app.use(compression({
+            br: { quality: 11 }, // Enable Brotli compression with max quality
+            filter: shouldCompress,
+            threshold: 1024, // Compress only if body is > 1KB
+            memLevel: 9 // Max memory level for zlib
+          }));
 
-function shouldCompress(req, res) {
-  if (req.headers['x-no-compression']) {
-    return false;
-  }
-  return compression.filter(req, res); // Use default filter
-}</code></pre>
+            function shouldCompress(req, res) {
+              if (req.headers['x-no-compression']) {
+                return false;
+              }
+    return compression.filter(req, res); // Use default filter
+          }
+        </code>
+      </pre>
 
       <h2>🔍 Internals: Why It Works</h2>
       <ul>

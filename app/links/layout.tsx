@@ -1,7 +1,7 @@
 import type React from "react"
 import Link from "next/link"
 
-export default function BlogLayout({
+export default function LinkLayout({
   children,
 }: {
   children: React.ReactNode

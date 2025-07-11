@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Search, Clock, User, ArrowLeft } from "lucide-react"
-// import { articles } from "@/data/article.data"
 import { articles } from '@/data/articles'
 import { format } from 'date-fns'
+import Loading from "../loading"
 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
@@ -26,7 +26,8 @@ export default function ArticlesPage() {
   })
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <Suspense fallback={<Loading />}>
+      <main className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
 
         <Link href={"/"} className="inline-flex items-center text-emerald-400 hover:text-emerald-600 mb-8">
@@ -166,5 +167,6 @@ export default function ArticlesPage() {
         </section>
       </div>
     </main>
+    </Suspense>
   )
 }
