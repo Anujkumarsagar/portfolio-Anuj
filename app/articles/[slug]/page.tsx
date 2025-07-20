@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { ArticleView } from '@/components/ArticleView';
 import { articles } from '@/data/articles';
 import { Suspense } from 'react';
-import Loading from '../loading';
 
 interface PageProps {
   params: {
@@ -19,7 +18,7 @@ export default function ArticlePage({ params }: PageProps) {
   }
 
   return (
-   <Suspense fallback={<Loading />}>
+   <Suspense >
      <main className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto">
         <section className="relative p-6 md:p-10 rounded-3xl overflow-hidden section-gradient">

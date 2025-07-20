@@ -22,6 +22,13 @@ const allLinks = [
     category: "v0",
     date: "2025-07-11",
     description: "Modern Layout Website with parrot green theme",
+  }, {
+    id: 3,
+    title: "Payment Integration Page ",
+    url: "/links/payment-tutorial-page",
+    category: "Payment Gateway",
+    date: "2025-07-18",
+    description: "Complete Razorpay Integration Tutorial Page With code example",
   },
 
 ]
@@ -35,7 +42,7 @@ export default function LinksPage() {
     selectedCategory === "all" ? allLinks : allLinks.filter((link) => link.category === selectedCategory)
 
   return (
-    <Suspense unstable_expectedLoadTime={200} fallback={<Loading />}>
+    // <Suspense unstable_expectedLoadTime={200} fallback={<Loading />}>
       <div className="min-h-screen  bg-black text-white">
 
 
@@ -104,9 +111,9 @@ export default function LinksPage() {
                         <span className="text-sm text-white-500">{link.date}</span>
                       </div>
                       <h3 className="text-lg font-medium text-white mb-2">
-                        <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+                        <Link href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
                           {link.title}
-                        </a>
+                        </Link>
                       </h3>
                       <p className="text-gray-600 text-sm mb-3">{link.description}</p>
                       <p className="text-blue-600 text-sm truncate">{link.url}</p>
@@ -148,6 +155,6 @@ export default function LinksPage() {
           </div>
         </main>
       </div>
-    </Suspense>
+    // </Suspense>
   )
 }

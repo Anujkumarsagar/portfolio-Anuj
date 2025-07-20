@@ -24,11 +24,16 @@ import ArticlesSlider from "@/components/cards/ArticlesSlider";
 import { title } from "process";
 import { motion } from "framer-motion";
 import Loading from "./loading";
+import { sleep } from "./articles/page";
 
 export default function Home() {
   const circleRef = useRef<HTMLDivElement | null>(null);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [showLinks, setShowLinks] = useState<boolean>(false);
+
+  useEffect(()=>{
+    sleep(500)
+  }, [])
 
   function handleMobileNav() {
     if (!circleRef.current) return;
@@ -229,11 +234,13 @@ export default function Home() {
                 >
                   Projects
                 </Link>
+                
                 <a target="_blank"
                   download
-                  onclick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1kAfuAcKr56pYBnMMXgMy2fYCZM-2cIlC/view" download="Anujkumar_Resume_FullStack_2025.pdf">
+                  onClick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1kAfuAcKr56pYBnMMXgMy2fYCZM-2cIlC/view" download="Anujkumar_Resume_FullStack_2025.pdf">
                   <Download size={30} color="black" className="bg-white rounded-full scale-150  cursor-cell p-2" />
                 </a>
+                
               </div>
               <span className="absolute top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
                 <Link href="https://github.com/Anujkumarsagar" className="relative inline-flex group mb-4">
@@ -994,7 +1001,7 @@ export default function Home() {
         </motion.section>
 
         {/* Contacts Section */}
-        <motion.section
+        {/* <motion.section
           id="contacts"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1115,7 +1122,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </motion.section> */}
       </div>
     </main>
    </Suspense>

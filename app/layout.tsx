@@ -2,6 +2,8 @@ import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter, Space_Mono } from "next/font/google"
+import Footer from "@/components/Footer/FooterSec"
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,8 +18,8 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "Anuj Kumar | Full-stack Developer",
-  description: "Portfolio of Anuj Kumar, a full-stack developer with 5 years of experience",
-    generator: 'v0.dev'
+  description: "A Full Stack Developer with Experience 2 years and worked with many startups , open to opportunity",
+  generator: 'NextJS '
 }
 
 export default function RootLayout({
@@ -27,11 +29,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      
-      <body className={`${inter.variable} ${spaceMono.variable} font-sans`}>{children}</body>
+
+      <body className={`${inter.variable} ${spaceMono.variable} font-sans`}>
+        {children}
+        <Footer />
+      </body>
+
+
+
     </html>
   )
 }
-
-
-import './globals.css'

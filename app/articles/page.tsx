@@ -6,12 +6,12 @@ import Link from "next/link"
 import { ArrowRight, Search, Clock, User, ArrowLeft } from "lucide-react"
 import { articles } from '@/data/articles'
 import { format } from 'date-fns'
-import Loading from "../loading"
+export const sleep = (ms : any) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
 
@@ -24,9 +24,9 @@ export default function ArticlesPage() {
 
     return matchesSearch && matchesCategory
   })
-
+  await sleep(2000);
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense >
       <main className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
 

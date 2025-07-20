@@ -8,14 +8,14 @@ export default function LinkLayout({
 }) {
   return (
     <div className="min-h-screen bg-black  text-white">
-      <header className="relative container m-auto mt-10 ml-5  flex justify-between items-center mb-10">
+      <header className="relative container m-auto mt-10 pl-5  flex justify-between items-center mb-10">
         <Link href={"/"} className="cursor-cell">
           <h2 className="font-mono  text-lg border border-white px-3 py-1 rounded-full">
             Anuj.Kumar
           </h2>
         </Link>
       </header>
-      <div className="  container m-auto bg-red-200">{children}</div>
+      <div className="  w-full m-auto">{children}</div>
     </div>
   )
 }
