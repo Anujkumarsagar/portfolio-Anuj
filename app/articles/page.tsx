@@ -11,7 +11,7 @@ export const sleep = (ms : any) => new Promise((resolve) => setTimeout(resolve, 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
 
-export default async function ArticlesPage() {
+export default function ArticlesPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
 
@@ -24,7 +24,7 @@ export default async function ArticlesPage() {
 
     return matchesSearch && matchesCategory
   })
-  await sleep(2000);
+  // await sleep(2000);
   return (
     <Suspense >
       <main className="min-h-screen bg-black text-white">

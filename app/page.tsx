@@ -25,6 +25,7 @@ import { title } from "process";
 import { motion } from "framer-motion";
 import Loading from "./loading";
 import { sleep } from "./articles/page";
+import Scene from "@/components/ui/image-ripple";
 
 export default function Home() {
   const circleRef = useRef<HTMLDivElement | null>(null);
@@ -235,11 +236,10 @@ export default function Home() {
                   Projects
                 </Link>
                 
-                <a target="_blank"
-                  download
-                  onClick="setTimeout(() => window.open(this.href, '_blank'), 100); return true;" href="https://drive.google.com/file/d/1kAfuAcKr56pYBnMMXgMy2fYCZM-2cIlC/view" download="Anujkumar_Resume_FullStack_2025.pdf">
+                <Link target="_blank"
+                  href="https://drive.google.com/file/d/1-iLwm1sKPPEbjgonn-_8A9_H6LTYGdn-/view?usp=sharing" download="Anujkumar_Resume_FullStack_2025.pdf">
                   <Download size={30} color="black" className="bg-white rounded-full scale-150  cursor-cell p-2" />
-                </a>
+                </Link>
                 
               </div>
               <span className="absolute top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
@@ -686,6 +686,24 @@ export default function Home() {
           <div className="border-y border-gray-800">
             <div className="py-4 grid grid-cols-[1fr_1fr_1fr] gap-4">
               <div>
+                <p className="text-sm">July 2025 - Present</p>
+                <p className="text-xs text-gray-500"> Working</p>
+              </div>
+              <div>
+                <h3 className="font-medium">Intellect Sprouts</h3>
+                <p className="text-sm text-gray-400">Junior Web Developer Intern</p>
+              </div>
+              <div>
+                <h3 className="font-medium">Visit</h3>
+                <a href="https://www.linkedin.com/company/intellect-sprouts/posts/?feedView=all" className="text-sm text-blue-400 gap-3 flex animate-in">LinkedIn
+
+                  <ArrowRight color="black" className="  bg-white rounded-full" />
+                </a>
+              </div>
+
+            </div>
+            <div className="py-4 grid grid-cols-[1fr_1fr_1fr] gap-4">
+              <div>
                 <p className="text-sm">Nov 2024 - Apr 2025</p>
                 <p className="text-xs text-gray-500"> 6 months</p>
               </div>
@@ -708,7 +726,7 @@ export default function Home() {
 
           <div className="text-right mt-4">
             <p className="text-gray-400">Proffesional Work experience</p>
-            <p className="font-medium">6 months</p>
+            <p className="font-medium">8 months</p>
           </div>
         </motion.section>
 
@@ -1123,6 +1141,8 @@ export default function Home() {
             </div>
           </div>
         </motion.section> */}
+
+        {/* <Scene /> */}
       </div>
     </main>
    </Suspense>
