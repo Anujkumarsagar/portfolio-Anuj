@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import { Github, Instagram, Linkedin, Mail, TextIcon as Telegram } from "lucide-react";
 import Link from "next/link";
+import ThreeDContact from "../cards/3DContact";
 
 export default function Footer(){
     return  <div className="max-w-7xl mx-auto">
@@ -17,6 +18,7 @@ export default function Footer(){
           className="p-6 md:p-10 section-gradient"
         >
           <h2 className="text-5xl md:text-6xl font-bungee mb-10 text-right">Contact</h2>
+          <ThreeDContact />
 
           <div className="lg:grid lg:grid-cols-2 lg:gap-10">
             <div>
@@ -41,7 +43,7 @@ export default function Footer(){
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="https://github.com/Anujkumarsagar" className="relative inline-flex group mb-4">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
                     <Github className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                   </Link>
                 </motion.div>
@@ -54,7 +56,7 @@ export default function Footer(){
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="https://linkedin.com/in/Anujkumarsagar" className="relative inline-flex group mb-4">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
                     <Linkedin className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                   </Link>
                 </motion.div>
@@ -67,7 +69,7 @@ export default function Footer(){
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="mailto:anujkumarsagar62@gmail.com" className="relative inline-flex group mb-4">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
                     <Mail className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                   </Link>
                 </motion.div>
@@ -80,7 +82,7 @@ export default function Footer(){
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="https://t.me/SoftwareEngineer6" className="relative inline-flex group mb-4">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
                     <Telegram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                   </Link>
                 </motion.div>
@@ -93,7 +95,7 @@ export default function Footer(){
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="https://www.instagram.com/2_._anuj_._2/" className="relative inline-flex group">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                    <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
                     <Instagram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
                   </Link>
                 </motion.div>

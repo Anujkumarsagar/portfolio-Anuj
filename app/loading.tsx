@@ -47,7 +47,7 @@ export default function Loading() {
   return (
     <div
       ref={tunnelRef}
-      className="relative w-80 m-auto h-screen h-80 flex items-center justify-center"
+      className="relative w-80 m-auto md:h-screen h-80 flex items-center justify-center"
       style={{ perspective: "1000px" }}
     >
       {Array.from({ length: 10 }, (_, i) => (

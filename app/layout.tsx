@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter, Space_Mono } from "next/font/google"
 import Footer from "@/components/Footer/FooterSec"
+import { Toaster } from "@/components/ui/toaster"
 
 
 const inter = Inter({
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${spaceMono.variable} font-sans`}>
         {children}
         <Footer />
+        <Toaster />
       </body>
 
 
