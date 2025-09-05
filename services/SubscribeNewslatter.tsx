@@ -4,17 +4,16 @@
 import { transporter } from "@/lib/nodemailer";
 
 
-export async function sendEmailAction(prevState: any, formData: FormData) {
-  try {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const message = formData.get("message") as string;
+export async function SubscribeNewsLetter(prevState: any, formData: FormData) {
+    try {
+        const email = formData.get("email") as string;
+        const message = "subscribing the new letter";
 
-    if (!email || !name || !message) {
-      return { status: false, message: "Missing required fields", data: null };
-    }
+        if (!email || !message) {
+            return { status: false, message: "Missing required fields", data: null };
+        }
 
-    const htmlTemplate = `
+        const htmlTemplate = `
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -43,19 +42,27 @@ export async function sendEmailAction(prevState: any, formData: FormData) {
   </html>
   `;
 
-    const htmlContent = htmlTemplate
-      .replace("{{name}}", name)
-      .replaceAll("{{email}}", email)
-      .replace("{{message}}", message);
+        const htmlContent = htmlTemplate
+            .replaceAll("{{email}}", email)
+            .replace("{{message}}", message);
 
-    const info = await transporter.sendMail({
-      from: '"Portfolio Contact" <samajseva62@gmail.com>',
-      to: "anujkumarsagar62@gmail.com",
-      subject: "New Contact Form Message",
-      html: htmlContent,
-    });
-    return { status: true, message: "Email Sent", data: info };
-  } catch (error) {
-    return { status: false, message: "Failed to send email", data: null };
-  }
+        const info = await transporter
+            .sendMail({
+                from: '"Portfolio Contact" <samajseva62@gmail.com>',
+                to: "anujkumarsagar62@gmail.com",
+                subject: "New Contact Form Message",
+                html: htmlContent,
+            });
+
+        const sendEmailToUser = await transporter
+            .sendMail({
+                from: '"Portfolio Contact" <samajseva62@gmail.com>',
+                to: `${email}`,
+                subject: "Confirmation of Subscription to the New Letter",
+                html: htmlContent,
+            })
+        return { status: true, message: "Email Sent", data: info };
+    } catch (error) {
+        return { status: false, message: "Failed to send email", data: null };
+    }
 }

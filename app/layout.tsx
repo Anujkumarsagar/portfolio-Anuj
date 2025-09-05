@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { Inter, Space_Mono } from "next/font/google"
 import Footer from "@/components/Footer/FooterSec"
 import { Toaster } from "@/components/ui/toaster"
+import LoaderOfLink from '@/components/LoaderOfLink'
 
 
 const inter = Inter({
@@ -31,10 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
 
-      <body className={`${inter.variable} ${spaceMono.variable} font-sans`}>
-        {children}
-        <Footer />
-        <Toaster />
+      <body className={`${inter.variable} ${spaceMono.variable} font-sans w-full`}>
+        <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
+          {children}
+        </LoaderOfLink>
       </body>
 
 

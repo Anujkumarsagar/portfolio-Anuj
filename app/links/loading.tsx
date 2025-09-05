@@ -2,6 +2,6 @@ import Loader from "@/app/loading";
 
 
 
-export default async function Loading() {
+export default async function LoaderOfLink() {
     return <Loader />
 }

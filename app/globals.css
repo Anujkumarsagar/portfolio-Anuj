@@ -120,6 +120,51 @@ body {
 }
 
 
+
 code{
-  overflow: scroll;
+  /* Keep long inline code horizontally scrollable */
+  overflow-x: auto;
+  width: 100%;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  background-color: white;
+  color: black;
+}
+
+/* Make block code (<pre><code>...) scroll independently so only the code area scrolls
+   - limit height so very long code doesn't push the entire page
+   - allow both vertical and horizontal scrolling inside the code block
+   - style in a dark-friendly way when .dark is present */
+.prose pre,
+pre {
+  max-height: 48vh; /* limit height to viewport fraction */
+  overflow: auto; /* allow vertical and horizontal scroll inside the block */
+  margin: 1rem;
+  border-radius: 0.5rem;
+  background-color: #ffffff; /* light fallback */
+  color: #000000;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.prose pre code,
+pre code {
+  display: block; /* ensure code fills the pre and wraps only when intended */
+  white-space: pre; /* preserve formatting */
+  overflow-x: auto;
+  margin: 5px 5px;
+  background: transparent; /* parent pre provides background */
+  color: inherit;
+}
+
+/* Dark mode overrides */
+.dark .prose pre,
+.dark pre {
+  background-color: #0b0b0b;
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.dark code {
+  background-color: #111827;
+  color: #e5e7eb;
 }

@@ -103,8 +103,8 @@ export default function Footer(){
             </div>
 
             <div className="mt-6 lg:mt-0">
-              <div className="flex justify-end mb-6">
-                <nav className="flex gap-2 font-bungee">
+              <div className="  mb-6">
+                <nav className="  flex-wrap flex gap-2 font-bungee scale-90 md:scale-105 text-stone-400">
                   <Link href="#" className="hover:text-gray-300 transition-colors">
                     Main
                   </Link>

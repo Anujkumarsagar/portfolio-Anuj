@@ -4,8 +4,7 @@ import React, { useActionState, useEffect } from "react";
 import "./styles/3DContact.css";
 import { sendEmailAction } from "@/services/ThreeDContactSubmit";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
-import { useToast } from "../ui/use-toast";
-import { toast } from "sonner";
+import { useToast, toast } from "@/hooks/use-toast";
 
 type Props = {};
 const initialState = { status: false, message: "", data: "" };
@@ -15,13 +14,18 @@ const ThreeDContact = (props: Props) => {
     message: string;
     status: boolean;
     data: SMTPTransport.SentMessageInfo;
-  }>(sendEmailAction, initialState);
+  }>( sendEmailAction, initialState);
 
   
   useEffect(() => {
     if (!state.message) return;
     if (state.status) {
-      toast({title: "Success", description: state.message});
+
+      toast({
+        title: "Success",
+        description: state.message,
+        variant: "default",
+      });
     } else {
       toast({
         title: "Error",
@@ -32,7 +36,7 @@ const ThreeDContact = (props: Props) => {
   }, [state]);
   return (
     <form action={formAction}>
-      <div className="parent m-6">
+      <div className="parent m-6 md:w-fit mx-auto">
         <div className="card">
           {/* AK Logo etc... */}
           <div className="logo">
