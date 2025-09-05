@@ -21,7 +21,27 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Anuj Kumar | Full-stack Developer",
   description: "A Full Stack Developer with Experience 2 years and worked with many startups , open to opportunity",
-  generator: 'NextJS '
+  generator: 'NextJS ',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        type: 'image/x-icon',
+      },
+    ],
+    shortcut: [
+      {
+        url: '/favicon.ico',
+        type: 'image/x-icon',
+      },
+    ],
+    apple: [
+      {
+        url: '/favicon.ico',
+      },
+    ],
+  },
+
 }
 
 export default function RootLayout({
