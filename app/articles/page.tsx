@@ -1,18 +1,49 @@
 "use client"
 
-import { Suspense, useState } from "react"
+import { Suspense, useActionState, useEffect, useState } from "react"
 import Image from "next/image"
-import { ArrowRight, Search, Clock, User, ArrowLeft } from "lucide-react"
+import { ArrowRight, Search, Clock, User, ArrowLeft, Loader2Icon } from "lucide-react"
 import { articles } from '@/data/articles'
 import { format } from 'date-fns'
 import useRouterHook from "@/hooks/use-router"
+import SMTPTransport from "nodemailer/lib/smtp-transport"
+import { SubscribeNewsLetter } from "@/services/SubscribeNewslatter"
+import { toast } from "@/hooks/use-toast"
+import { Loader } from "@react-three/drei"
 export const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
 
+const initialState = { status: false, message: "", data: "" };
+
+
 export default function ArticlesPage() {
   const { navigateTo, navigateBack } = useRouterHook()
+
+  const [state, formAction, isPending] = useActionState<{
+    status: boolean;
+    data: SMTPTransport.SentMessageInfo;
+  }>(SubscribeNewsLetter, initialState);
+
+
+  useEffect(() => {
+      if (!state.message) return;
+    if (state.status) {
+      toast({
+        title: "Success",
+        description: "Subscribed Successfully",
+        variant: "default",
+      });
+
+    } else {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        variant: "destructive",
+      })
+    }
+  }, [state])
 
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
@@ -135,7 +166,7 @@ export default function ArticlesPage() {
                     </div>
                   </div>
                 </article>
-                </div>
+              </div>
             ))}
           </div>
 
@@ -167,16 +198,18 @@ export default function ArticlesPage() {
                 Subscribe to my newsletter to receive notifications about new articles, insights, and updates.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <form action={formAction} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
+                  name="email"
                   type="email"
+                  required
                   placeholder="Enter your email"
                   className="flex-grow bg-gray-900/60 border border-gray-800 rounded-full py-3 px-6 focus:outline-none focus:ring-2 focus:ring-white/20"
                 />
-                <button className="bg-white text-black rounded-full py-3 px-6  hover:bg-gray-200 transition-colors">
-                  Subscribe
+                <button type="submit" disabled={isPending} className={"bg-white text-black rounded-full py-3 px-6  hover:bg-gray-200 transition-colors"}>
+                  {isPending ? <div><Loader2Icon className="animate-spin h-5 w-5 transition-all duration-1000 ease-linear" /></div> : "Subscribe"}
                 </button>
-              </div>
+              </form>
             </div>
           </section>
         </div>

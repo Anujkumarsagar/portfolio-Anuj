@@ -22,7 +22,7 @@ export default function BlogLayout({
           </h2>
         </Link>
       </header>
-      <div className="  container m-auto bg-red-200">{children}</div>
+      <div className="  container m-auto ">{children}</div>
     </div>
   )
 }

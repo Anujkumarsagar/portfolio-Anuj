@@ -207,7 +207,7 @@ const newLetterTemplate = (email: string) => {
                                 
                                 <!-- Brand Name -->
                                 <div style="color: #1e293b; font-size: 24px; font-weight: 700; font-family: 'Inter', sans-serif; margin: 0;">
-                                    Portfolio
+                                    CVANUJ.VERCEL.APP
                                 </div>
                             </td>
                         </tr>
@@ -277,17 +277,17 @@ const newLetterTemplate = (email: string) => {
                                 
                                 <!-- Social Links -->
                                 <div style="margin-bottom: 24px;">
-                                    <a href="#" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <a href="https://github.com/Anujkumarsagar" style="display: inline-block; margin: 0 12px; text-decoration: none;">
                                         <div style="background: #1da1f2; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
-                                            <span style="color: #ffffff; font-size: 16px;">𝕏</span>
+                                            <span style="color: #ffffff; font-size: 16px;">GithHub</span>
                                         </div>
                                     </a>
-                                    <a href="#" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <a href="https://linkedin.com/in/anujkumarsagar" style="display: inline-block; margin: 0 12px; text-decoration: none;">
                                         <div style="background: #0077b5; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
                                             <span style="color: #ffffff; font-size: 16px;">in</span>
                                         </div>
                                     </a>
-                                    <a href="#" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <a href="mailto:anujkumarsagar62@gmail.com" style="display: inline-block; margin: 0 12px; text-decoration: none;">
                                         <div style="background: #333; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
                                             <span style="color: #ffffff; font-size: 16px;">@</span>
                                         </div>
@@ -296,15 +296,13 @@ const newLetterTemplate = (email: string) => {
                                 
                                 <!-- Contact Info -->
                                 <p style="margin: 0 0 16px 0; color: #64748b; font-size: 14px; line-height: 1.5; font-family: 'Inter', sans-serif;">
-                                    Portfolio Contact<br>
-                                    <a href="mailto:samajseva62@gmail.com" style="color: #667eea; text-decoration: none;">samajseva62@gmail.com</a>
+                                    Contact<br>
+                                    <a href="mailto:anujkumarsagar62@gmail.com" style="color: #667eea; text-decoration: none;">samajseva62@gmail.com</a>
                                 </p>
                                 
                                 <!-- Unsubscribe -->
                                 <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.5; font-family: 'Inter', sans-serif;">
                                     You received this email because you subscribed to our newsletter.<br>
-                                    <a href="#" style="color: #94a3b8; text-decoration: underline;">Unsubscribe</a> | 
-                                    <a href="#" style="color: #94a3b8; text-decoration: underline;">Update Preferences</a>
                                 </p>
                                 
                             </td>
@@ -324,3 +322,35 @@ const newLetterTemplate = (email: string) => {
 </body>
 </html>
 `}
+
+
+const htmlTemplate = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>New Contact Message</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <div style="background: #30cfd0; background: linear-gradient(90deg, #30cfd0 0%, #c43ad6 100%); padding: 20px; color:white">
+          <h2>🚀 New Message Received</h2>
+        </div>
+  
+        <div style="padding: 20px;">
+          <p><strong>Name:</strong> {{name}}</p>
+          <p><strong>Email:</strong> {{email}}</p>
+          <p><strong>Message:</strong></p>
+          <p style="background-color:#f2f2f2; padding:10px; border-radius:5px;">
+            {{message}}
+          </p>
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="mailto:{{email}}" style="background-color: #c43ad6; color: #ffffff; padding: 12px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">Reply Now</a>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+  `;
+
+  export { newLetterTemplate, htmlTemplate };
