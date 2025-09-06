@@ -190,7 +190,7 @@ export default function Home() {
                       onClick={() => {
 
                         handleMobileNav()
-                        navigateTo("/aritcles")
+                        navigateTo("/articles")
                       }}
                       className="relative inline-flex cursor-pointer group w-full"
                     >
