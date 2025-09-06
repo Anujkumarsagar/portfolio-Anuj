@@ -262,7 +262,7 @@ export default function Home() {
 
                 <Link
                   target="_blank"
-                  href="https://drive.google.com/file/d/1-iLwm1sKPPEbjgonn-_8A9_H6LTYGdn-/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1l1jppJO8peB3spozXwFwxpzFWG0LnhSO/view?usp=sharing"
                   download="Anujkumar_Resume_FullStack_2025.pdf"
                 >
                   <Download
