@@ -114,7 +114,7 @@ export default function Footer(){
                   <Link href="#projects" className="hover:text-gray-300 transition-colors">
                     Projects
                   </Link>
-                  <Link href="#articles" className="hover:text-gray-300 transition-colors">
+                  <Link href="/articles" className="hover:text-gray-300 transition-colors">
                     Articles
                   </Link>
                   <Link href="/links" className="hover:text-gray-300 transition-colors">
