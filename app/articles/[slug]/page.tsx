@@ -13,11 +13,10 @@ interface PageProps {
   };
 }
 
-export default function ArticlePage({ params }: PageProps) {
+export default function ArticlePage ({ params: { slug} }: PageProps) {
 
-  const prams = params
   // Find the article by matching the slug
-  const article =  articles.find((article) => article.slug === params.slug);
+  const article =  articles.find((article) => article.slug === slug);
 
   if (!article) {
     notFound();

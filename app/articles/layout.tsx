@@ -3,6 +3,8 @@
 import type React from "react"
 import Link from "next/link"
 import Image from "next/image"
+import MainHeader from "@/components/header-main"
+
 
 
 export default function BlogLayout({
@@ -11,17 +13,10 @@ export default function BlogLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen max-w-7xl mx-auto bg-black  text-white">
-      <header className="relative container m-auto mt-10 ml-5  flex justify-between items-center mb-10">
-        <Link href={"/"} className="cursor-cell">
-          <h2 className=" h-fit md:scale-110  font-bungee text-lg border flex border-white px-3 py-1 rounded-full">
-            <Image src={"favicon.ico"} width={36} height={36} alt="Logo" />
-            <div className="h-fit pt-2">
-              NUJ
-            </div>
-          </h2>
-        </Link>
-      </header>
+    <div className="min-h-screen  max-w-7xl mx-auto bg-black  text-white main-section relative rounded-3xl overflow-hidden section-gradient">
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
+      <MainHeader  className=" p-6 md:p-10 " />
       <div className="  container m-auto ">{children}</div>
     </div>
   )

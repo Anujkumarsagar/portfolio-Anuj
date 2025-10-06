@@ -60,24 +60,24 @@ export default function ArticlesPage() {
   // await sleep(2000);
   return (
     <Suspense >
-      <main className="min-h-screen bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <main className="min-h-screen w-full overflow-hidden bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6  sm:py-24">
 
-          <button
+          {/* <button
             type="button"
             onClick={() => navigateBack()}
             className="inline-flex items-center text-emerald-400 hover:text-emerald-600 mb-8"
           >
             <ArrowLeft className="w-4 h-4 mr-2 text-emerald-400" />
             <span className="text-emerald-400 hover:text-emerald-600">Back to Main Page</span>
-          </button>
+          </button> */}
           {/* Header Section */}
           <section className="relative p-6 md:p-10 rounded-3xl overflow-hidden section-gradient mb-12">
             <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
 
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-6xl font-bungee mb-6">Articles & Insights</h1>
+            <div className="">
+              <h1 className="text-4xl md:text-6xl font-bungee mb-6">Articles & Insights</h1>
               <p className="text-xl text-gray-300 mb-8">
                 Explore my thoughts, experiences, and technical insights from years of working in web and mobile
                 development.

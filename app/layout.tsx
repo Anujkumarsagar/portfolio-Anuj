@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
 
-      <body className={`${inter.variable} ${spaceMono.variable} font-sans w-full`}>
+      <body className={`${inter.variable} ${spaceMono.variable} font-sans w-full `}>
         <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
           {children}
         </LoaderOfLink>
