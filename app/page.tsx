@@ -25,6 +25,7 @@ import { sleep } from "./articles/page";
 import { skills, tags } from "@/data/tags";
 import useRouterHook from "@/hooks/use-router";
 import MainHeader from "@/components/header-main";
+import { AwardWinningProjects } from "@/components/award-winning-projects";
 
 
 
@@ -970,6 +971,9 @@ export default function Home() {
 
 
         </motion.section>
+
+        {/* Award Winning Projects Section */}
+        <AwardWinningProjects />
 
         {/* Articles Section */}
         <motion.section
