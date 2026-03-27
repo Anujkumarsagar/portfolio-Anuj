@@ -1,4 +1,4 @@
-import Loader from "@/app/loading";
+import Loader from "@/app/[website]/loading";
 
 
 

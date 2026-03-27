@@ -21,7 +21,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import useRouterHook from '@/hooks/use-router';
-import { sleep } from '@/app/articles/page';
+import { sleep } from '@/app/[website]/articles/page';
 
 
 export default function MainHeader({className}:{

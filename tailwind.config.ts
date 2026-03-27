@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss"
+import plugin from "tailwindcss/plugin"
+
 const config: Config = {
   darkMode: ["class"],
   content: [
@@ -7,7 +9,8 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
+
+  theme: {``
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -57,6 +60,19 @@ const config: Config = {
           100: "#EEEEEE",
         },
       },
+      boxShadow: {
+        'elevated': '0 10px 30px rgba(0,0,0,0.06)',
+        'ring': '0 0 0 2px rgba(109,40,217,0.15)',
+        // Equal spread shadows - perfect symmetry all around
+        // Use with shadow color utilities like: shadow-equal-xs shadow-red-200
+        'equal-xs': '0 0 2px 1px',
+        'equal-sm': '0 0 4px 2px',
+        'equal': '0 0 8px 3px',
+        'equal-md': '0 0 12px 4px',
+        'equal-lg': '0 0 16px 5px',
+        'equal-xl': '0 0 24px 6px',
+        'equal-2xl': '0 0 32px 8px',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -72,7 +88,149 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const squircleUtilities: Record<string, any> = {}
+      
+      // Amplification factor - adjust this value to control the radius increase
+      // 1.3 = 30% increase, 1.4 = 40% increase, 1.5 = 50% increase
+      // Test different values to find what looks best in your design
+      const AMPLIFICATION_FACTOR = 1.8 // 80% increase - more balanced
+ 
+      // Generate squircle utilities from 1 to 100
+      for (let i = 1; i <= 100; i++) {
+        const amplifiedValue = Math.round(i * AMPLIFICATION_FACTOR)
+        
+        // All corners: squircle-a-20
+
+        squircleUtilities[`.squircle-a-${i}`] = {
+          'border-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Top corners: squircle-t-20
+        squircleUtilities[`.squircle-t-${i}`] = {
+          'border-top-left-radius': `${i}px`,
+          'border-top-right-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-top-left-radius': `${amplifiedValue}px`,
+            'border-top-right-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Bottom corners: squircle-b-20
+        squircleUtilities[`.squircle-b-${i}`] = {
+          'border-bottom-left-radius': `${i}px`,
+          'border-bottom-right-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-bottom-left-radius': `${amplifiedValue}px`,
+            'border-bottom-right-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Left corners: squircle-l-20
+        squircleUtilities[`.squircle-l-${i}`] = {
+          'border-top-left-radius': `${i}px`,
+          'border-bottom-left-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-top-left-radius': `${amplifiedValue}px`,
+            'border-bottom-left-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Right corners: squircle-r-20
+        squircleUtilities[`.squircle-r-${i}`] = {
+          'border-top-right-radius': `${i}px`,
+          'border-bottom-right-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-top-right-radius': `${amplifiedValue}px`,
+            'border-bottom-right-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Top-left corner: squircle-tl-20
+        squircleUtilities[`.squircle-tl-${i}`] = {
+          'border-top-left-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-top-left-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Top-right corner: squircle-tr-20
+        squircleUtilities[`.squircle-tr-${i}`] = {
+          'border-top-right-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-top-right-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Bottom-left corner: squircle-bl-20
+        squircleUtilities[`.squircle-bl-${i}`] = {
+          'border-bottom-left-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-bottom-left-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+ 
+        // Bottom-right corner: squircle-br-20
+        squircleUtilities[`.squircle-br-${i}`] = {
+          'border-bottom-right-radius': `${i}px`,
+          'corner-shape': 'round',
+          '@supports (corner-shape: squircle)': {
+            'border-bottom-right-radius': `${amplifiedValue}px`,
+            'corner-shape': 'squircle',
+          }
+        }
+      }
+ 
+      // Add special utilities for half and full (all corners)
+      squircleUtilities['.squircle-a-half'] = {
+        'border-radius': '50%',
+        'corner-shape': 'round',
+        '@supports (corner-shape: squircle)': {
+          'border-radius': '50%',
+          'corner-shape': 'squircle',
+        }
+      }
+ 
+      squircleUtilities['.squircle-a-full'] = {
+        'border-radius': '9999px',
+        'corner-shape': 'round',
+        '@supports (corner-shape: squircle)': {
+          'border-radius': '9999px',
+          'corner-shape': 'squircle',
+        }
+      }
+ 
+      // Standalone squircle-curve utility (if someone wants to use it separately)
+      squircleUtilities['.squircle-curve'] = {
+        'corner-shape': 'round',
+        '@supports (corner-shape: squircle)': {
+          'corner-shape': 'squircle',
+        }
+      }
+ 
+      addUtilities(squircleUtilities)
+    })
+  ],
 }
 
 export default config

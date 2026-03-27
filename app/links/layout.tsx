@@ -17,7 +17,7 @@ export default function LinkLayout({
 
       <MainHeader className="p-6 md:p-10 " />
 
-      <div className="  w-full m-auto">{children}</div>
+      <div className="  w-full m-auto">{children}</div> 
     </div>
   )
 }

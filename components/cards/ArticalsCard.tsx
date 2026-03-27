@@ -13,7 +13,7 @@ interface ArticlesCardProps {
 
 export function ArticlesCard({ article }: ArticlesCardProps) {
     return (
-        <div className="bg-gray-900 rounded-3xl p-6 w-90 h-48">
+        <div className="bg-gray-900 squircle-a-30  p-6 w-90 h-48">
             <h3 className="text-xl font-mono mb-2">{article.title}</h3>
         <p className="text-gray-400 text-sm mb-4 truncate w-[80%] ">{article.description}</p>
             <div className="flex items-center">

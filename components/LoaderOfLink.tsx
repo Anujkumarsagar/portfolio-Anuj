@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import Loading from '@/app/loading'
+import Loading from '@/app/[website]/loading'
 import MainHeader from './header-main'
 
 interface Props {

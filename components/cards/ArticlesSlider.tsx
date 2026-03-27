@@ -19,9 +19,9 @@ const ArticlesSlider = () => {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative   overflow-hidden">
       <ArticlesCard article={articles[currentIndex]} />
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center w-[25%] mx-auto my-2 justify-between mb-6">
         <button onClick={prevArticle} className="bg-gray-900 p-2 rounded-full hover:bg-gray-800 transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </button>
