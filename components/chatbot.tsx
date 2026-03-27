@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
 import { Send, X, Plus, MessageCircle } from 'lucide-react';
 
 export function Chatbot() {
@@ -12,9 +11,7 @@ export function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, setInput, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({
-      api: '/api/chat',
-    }),
+    api: '/api/chat',
   });
 
   const scrollToBottom = () => {
@@ -120,42 +117,54 @@ export function Chatbot() {
                 </motion.div>
               ) : (
                 <>
-                  {messages.map((message, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 10, x: message.role === 'user' ? 20 : -20 }}
-                      animate={{ opacity: 1, y: 0, x: 0 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: index * 0.05,
-                      }}
-                      className={`flex ${
-                        message.role === 'user' ? 'justify-end' : 'justify-start'
-                      }`}
-                    >
-                      <div
-                        className={`max-w-xs px-4 py-3 rounded-xl text-sm ${
-                          message.role === 'user'
-                            ? 'bg-blue-600 text-white rounded-br-none'
-                            : 'bg-gray-700 text-gray-100 rounded-bl-none'
+                  {messages.map((message, index) => {
+                    // Extract text content from message
+                    let textContent = '';
+                    if (typeof message.content === 'string') {
+                      textContent = message.content;
+                    } else if (Array.isArray(message.content)) {
+                      textContent = message.content
+                        .filter((part: any) => part.type === 'text')
+                        .map((part: any) => part.text)
+                        .join('');
+                    } else if ((message as any).parts && Array.isArray((message as any).parts)) {
+                      textContent = (message as any).parts
+                        .filter((part: any) => part.type === 'text')
+                        .map((part: any) => part.text)
+                        .join('');
+                    }
+
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10, x: message.role === 'user' ? 20 : -20 }}
+                        animate={{ opacity: 1, y: 0, x: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: index * 0.05,
+                        }}
+                        className={`flex ${
+                          message.role === 'user' ? 'justify-end' : 'justify-start'
                         }`}
                       >
-                        <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
+                        <div
+                          className={`max-w-xs px-4 py-3 rounded-xl text-sm ${
+                            message.role === 'user'
+                              ? 'bg-blue-600 text-white rounded-br-none'
+                              : 'bg-gray-700 text-gray-100 rounded-bl-none'
+                          }`}
                         >
-                          {typeof message.content === 'string'
-                            ? message.content
-                            : message.content?.map((part: any, i: number) => (
-                                <span key={i}>
-                                  {part.type === 'text' && part.text}
-                                </span>
-                              ))}
-                        </motion.p>
-                      </div>
-                    </motion.div>
-                  ))}
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {textContent}
+                          </motion.p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                   
                   {status === 'streaming' && (
                     <motion.div
