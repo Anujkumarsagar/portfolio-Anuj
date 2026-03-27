@@ -41,14 +41,18 @@ export default function MainHeader({className}:{
 
         setIsAnimating((prev) => {
             const newState = !prev;
-            circleRef.current?.classList.toggle("fixed", newState);
-            circleRef.current?.classList.toggle("circle-animate", newState);
-
+            
             if (newState) {
+                // Opening animation
+                circleRef.current?.classList.remove("circle-animate-closing");
+                circleRef.current?.classList.add("circle-animate");
                 setTimeout(() => {
                     setShowLinks(true);
-                }, 1500);
+                }, 1000);
             } else {
+                // Closing animation
+                circleRef.current?.classList.remove("circle-animate");
+                circleRef.current?.classList.add("circle-animate-closing");
                 setShowLinks(false);
             }
 
