@@ -5,6 +5,7 @@ import { Inter, Space_Mono } from "next/font/google"
 import Footer from "@/components/Footer/FooterSec"
 import { Toaster } from "@/components/ui/toaster"
 import LoaderOfLink from '@/components/LoaderOfLink'
+import { Chatbot } from "@/components/chatbot"
 
 
 const inter = Inter({
@@ -56,6 +57,7 @@ export default function RootLayout({
         <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
           {children}
         </LoaderOfLink>
+        <Chatbot />
       </body>
 
 
