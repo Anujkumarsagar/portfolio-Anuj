@@ -10,7 +10,7 @@ const config: Config = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
 
-  theme: {``
+  theme: {
     extend: {
       colors: {
         border: "hsl(var(--border))",
