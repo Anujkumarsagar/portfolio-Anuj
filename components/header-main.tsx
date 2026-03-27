@@ -21,7 +21,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import useRouterHook from '@/hooks/use-router';
-import { sleep } from '@/app/[website]/articles/page';
+// import { sleep } from '@/app/[website]/articles/page';
 
 
 export default function MainHeader({className}:{
@@ -32,9 +32,9 @@ export default function MainHeader({className}:{
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
     const [showLinks, setShowLinks] = useState<boolean>(false);
 
-    useEffect(() => {
-        sleep(500);
-    }, []);
+    // useEffect(() => {
+    //     sleep(500);
+    // }, []);
 
     function handleMobileNav() {
         if (!circleRef.current) return;
