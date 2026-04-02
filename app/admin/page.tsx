@@ -1,96 +1,10 @@
-import { Component, Grid, Grid2x2, LucideProps } from 'lucide-react'
-import React, { useState } from 'react'
+'use client';
 
-type Props = {}
-
-const Page = (props: Props) => {
-
-  type Tabs = {
-    id: number,
-    label: string,
-    component: React.ReactNode,
-    icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>,
-    submenu: {
-      id: number,
-      label: string,
-      component: React.ReactNode,
-      icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>,
-    }[]
-  }[]
-
-  const tabs: Tabs = [
-    {
-      id: 1,
-      label: "Document",
-      component: ,
-      icon: Grid,
-      submenu: [
-        {
-          id: 10,
-          label: "Articles",
-          component: ,
-          icon: Grid2x2,
-        }
-      ]
-    },
-    {
-      id: 2,
-      label: "Project",
-      component: ,
-      icon: Grid,
-      submenu: [
-        {
-          id: 10,
-          label: "Articles",
-          component: ,
-          icon: Grid2x2,
-        }
-      ]
-    },
-    {
-      id: 1,
-      label: "Links",
-      component: ,
-      icon: Grid,
-      submenu: [
-        {
-          id: 10,
-          label: "Articles",
-          component: ,
-          icon: Grid2x2,
-        }
-      ]
-    },
-    {
-      id: 1,
-      label: "Visitors",
-      component: ,
-      icon: Grid,
-      submenu: [
-        {
-          id: 10,
-          label: "Articles",
-          component: ,
-          icon: Grid2x2,
-        }
-      ]
-    },
-
-  ]
-
-  const [tab, setTab] = useState<string>("")
-
+export default function AdminPage() {
   return (
-    <div>
-      <div className="sidebar">
-
-      </div>
-      <div className="actual-content">
-
-      </div>
-
+    <div className="min-h-screen bg-black text-white p-8">
+      <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+      <p className="text-gray-400 mt-4">Coming soon...</p>
     </div>
-  )
+  );
 }
-
-export default Page

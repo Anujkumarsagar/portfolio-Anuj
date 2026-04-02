@@ -6,6 +6,7 @@ import Footer from "@/components/Footer/FooterSec"
 import { Toaster } from "@/components/ui/toaster"
 import LoaderOfLink from '@/components/LoaderOfLink'
 import { Chatbot } from "@/components/chatbot"
+import { SmoothScrollProvider } from "@/providers/smooth-scroll-provider"
 
 
 const inter = Inter({
@@ -54,10 +55,12 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
 
       <body className={`${inter.variable} ${spaceMono.variable} font-sans w-full `}>
-        <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
-          {children}
-        </LoaderOfLink>
-        <Chatbot />
+        <SmoothScrollProvider>
+          <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
+            {children}
+          </LoaderOfLink>
+          <Chatbot />
+        </SmoothScrollProvider>
       </body>
 
 

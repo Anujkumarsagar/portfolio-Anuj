@@ -29,6 +29,10 @@ import MainHeader from "@/components/header-main";
 import WorkExperience from "@/components/home/work-experience";
 import AboutMe from "@/components/home/about-me";
 import ProjectSection from "@/components/home/project-section";
+import { HeroAnimated } from "@/components/home/hero-animated";
+import { ProjectsAnimated } from "@/components/home/projects-animated";
+import { ParticleBackground } from "@/components/canvas/particle-background";
+import { AnimatedSection } from "@/components/sections/animated-section";
 
 export default function Home() {
   const { navigateTo, navigateBack, prefetchRoute } = useRouterHook();
@@ -63,152 +67,47 @@ export default function Home() {
   
 
   return (
-    <main className=" text-white min-h-screen ovevrflow-x-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Main Header Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+    <main className="text-white min-h-screen overflow-x-hidden relative">
+      <ParticleBackground particleCount={40} particleColor="rgba(100, 150, 255, 0.3)" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* New Animated Hero Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="main-section relative p-6 md:p-10 rounded-3xl overflow-hidden section-gradient"
         >
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
-
           <MainHeader className="" />
+          <HeroAnimated />
+        </motion.div>
 
-          {/* Hero  */}
-          <div className=" hero bg-black-[80%] lg:grid lg:grid-cols-2 lg:gap-10">
-            <Image
-              src="../assets/png/image.png"
-              alt="Developer photo"
-              width={800}
-              height={800}
-              loading="eager"
-              className="absolute  md:absolute top-20 left-0 "
-            />
-
-            <div className="">
-              <h1 className="text-5xl font-bungee md:text-6xl font-mono mb-9">
-                <p>Full-stack</p>
-                <p>Developer</p>
-              </h1>
-
-              <p className=" relative text-opacity-5 text-lg mb-6">
-                My goal is to{" "}
-                <span className="font-medium animate-pulse text-white italic">
-                  write maintainable, clean and understandable code
-                </span>{" "}
-                to process development was enjoyable.
-              </p>
-              <div className="mb-8 flex gap-4 relative items-center">
-                <Link
-                  href="#projects"
-                  className=" cursor-cell items-center bg-white text-black rounded-full px-16 py-6 font-medium text-lg hover:bg-gray-100 transition-colors"
-                >
-                  Projects
-                </Link>
-
-                <Link
-                  target="_blank"
-                  href="https://drive.google.com/file/d/1l1jppJO8peB3spozXwFwxpzFWG0LnhSO/view?usp=sharing"
-                  download="Anujkumar_Resume_FullStack_2025.pdf"
-                >
-                  <Download
-                    size={30}
-                    color="black"
-                    className="bg-white rounded-full scale-150  cursor-cell p-2"
-                  />
-                </Link>
-              </div>
-              <span className="absolute z-10 top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
-                <Link
-                  href="https://github.com/Anujkumarsagar"
-                  className="relative inline-flex group mb-4"
-                >
-                  <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
-                  <Github className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
-                </Link>
-                <Link
-                  href="https://linkedin.com/in/Anujkumarsagar"
-                  className="relative inline-flex group mb-4"
-                >
-                  <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
-                  <Linkedin className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
-                </Link>
-                <Link
-                  href="mailto:anujkumarsagar62@gmail.com"
-                  className="relative inline-flex group mb-4"
-                >
-                  <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
-                  <Mail className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
-                </Link>
-                <Link
-                  href="https://t.me/SoftwareEngineer6"
-                  className="relative inline-flex group mb-4"
-                >
-                  <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
-                  <Telegram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
-                </Link>
-                <Link
-                  href="https://www.instagram.com/2_._anuj_._2/"
-                  className="relative inline-flex group"
-                >
-                  <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
-                  <Instagram className="relative bg-gray-900 p-2 w-10 h-10 rounded-full transition-all duration-200 group-hover:bg-gray-800" />
-                </Link>
-              </span>
-            </div>
-          </div>
-
-          <div className="my-4 md:hidden w-fit flex items-end justify-between  h-32 relative">
-            <h1 className="text-7xl font-bungee">Link</h1>
-            <Redo
-              size={100}
-              className="absolute -rotate-0 -right-[37%] top-[2%]  bottom-0"
-            />
-          </div>
-
-          <Image
-            src="./assets/png/14.png"
-            alt="Developer photo"
-            width={800}
-            height={800}
-            loading="eager"
-            className="rounded-3xl  -z-1 filter-blur-xl md:absolute top-20   animate-spin right-0 m-auto "
-          />
-        </motion.section>
+        {/* Animated Projects Section */}
+        <AnimatedSection animation="slideUp" duration={0.8}>
+          <ProjectsAnimated />
+        </AnimatedSection>
 
         {/* Articles Slider Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="p-6 md:p-10 section-gradient"
-        >
-          <ArticlesSlider />
-        </motion.section>
+        <AnimatedSection animation="slideUp" duration={0.8}>
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="p-6 md:p-10 section-gradient"
+          >
+            <ArticlesSlider />
+          </motion.section>
+        </AnimatedSection>
 
         {/* About Me Section */}
-        <AboutMe />
+        <AnimatedSection animation="slideUp" duration={0.8}>
+          <AboutMe />
+        </AnimatedSection>
 
         {/* Work Experience Section */}
-        <WorkExperience />
-
-        {/* Projects Section */}
-        <ProjectSection
-          textAutoHide={true}
-          enableStars={true}
-          enableSpotlight={true}
-          enableBorderGlow={true}
-          enableTilt={true}
-          enableMagnetism={true}
-          clickEffect={true}
-          spotlightRadius={300}
-          particleCount={12}
-          glowColor="132, 0, 255"
-        />
+        <AnimatedSection animation="slideUp" duration={0.8}>
+          <WorkExperience />
+        </AnimatedSection>
 
         {/* Articles Section */}
         <motion.section
