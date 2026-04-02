@@ -606,7 +606,7 @@ const ProjectSection = ({
   return (
     <div className="space-y-6">
       {projects.map((project, idx) => (
-        <div id={project.id} className="border squircle-a-20 py-4">
+        <div key={project.id} id={project.id} className="border squircle-a-20 py-4">
           {enableSpotlight && (
             <GlobalSpotlight
               gridRef={(element) => {
