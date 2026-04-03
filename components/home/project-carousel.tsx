@@ -157,45 +157,13 @@ export const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
   const [activeProject, setActiveProject] = useState<string | null>(
     projects[0]?.id || null
   );
-  const lenisRef = useRef<any>(null);
 
-  // Initialize Lenis for smooth scrolling
+  // Apply smooth scroll behavior to the document
   useEffect(() => {
-    const initLenis = async () => {
-      try {
-        const { default: Lenis } = await import("lenis");
-
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: "vertical",
-          gestureOrientation: "vertical",
-          smoothWheel: true,
-          smoothTouch: false,
-          touchMultiplier: 2,
-        });
-
-        lenisRef.current = lenis;
-
-        let lastTime = Date.now();
-        const raf = (time: number) => {
-          const deltaTime = time - lastTime;
-          lastTime = time;
-          lenis.lenis?.raf(deltaTime);
-          requestAnimationFrame(raf);
-        };
-
-        requestAnimationFrame(raf);
-
-        return () => {
-          lenis.destroy?.();
-        };
-      } catch (error) {
-        console.warn("Lenis not available, using default scroll:", error);
-      }
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = "auto";
     };
-
-    initLenis();
   }, []);
 
   return (
