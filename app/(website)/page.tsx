@@ -29,7 +29,6 @@ import MainHeader from "@/components/header-main";
 import WorkExperience from "@/components/home/work-experience";
 import AboutMe from "@/components/home/about-me";
 import ProjectSection from "@/components/home/project-section";
-import FeaturedProjects from "@/components/home/featured-projects";
 
 export default function Home() {
   const { navigateTo, navigateBack, prefetchRoute } = useRouterHook();
@@ -197,41 +196,7 @@ export default function Home() {
         {/* Work Experience Section */}
         <WorkExperience />
 
-        {/* Projects Section */}
-        <FeaturedProjects
-          projects={[
-            {
-              id: "recipe-app",
-              title: "Recipe Sharing App",
-              description:
-                "A community-driven platform for culinary experts featuring real-time collaborative cooking and dynamic ingredient scaling. Built with Next.js and Firebase for seamless performance.",
-              image: "./assets/home/recipe.png",
-              link: "https://recipe-sharing-app-6b5v.onrender.com/",
-              github: "https://github.com/Anujkumarsagar/Recipe-Sharing-app",
-              tags: ["NEXT.JS", "FIREBASE", "TAILWIND"],
-            },
-            {
-              id: "dost-saas",
-              title: "Dost SaaS",
-              description:
-                "Internal productivity dashboard with high-fidelity data visualization and automated workflow management. Streamline your team's operations with real-time insights.",
-              image: "./assets/home/first.png",
-              link: "https://recipe-sharing-app-6b5v.onrender.com/",
-              github: "https://github.com/Anujkumarsagar/Recipe-Sharing-app",
-              tags: ["GRAPHQL", "REACT", "NODEJS"],
-            },
-            {
-              id: "portfolio",
-              title: "Portfolio Website",
-              description:
-                "Modern, interactive portfolio showcasing projects and expertise. Features smooth animations, responsive design, and engaging UI components built with cutting-edge web technologies.",
-              image: "./assets/home/home.png",
-              link: "https://recipe-sharing-app-6b5v.onrender.com/",
-              github: "https://github.com/Anujkumarsagar/Recipe-Sharing-app",
-              tags: ["NEXT.JS", "GSAP", "TAILWIND"],
-            },
-          ]}
-        />
+
 
         {/* Articles Section */}
         <motion.section
