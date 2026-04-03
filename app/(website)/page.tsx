@@ -29,7 +29,7 @@ import MainHeader from "@/components/header-main";
 import WorkExperience from "@/components/home/work-experience";
 import AboutMe from "@/components/home/about-me";
 import ProjectSection from "@/components/home/project-section";
-import ProjectCarousel from "@/components/home/project-carousel";
+import FeaturedProjects from "@/components/home/featured-projects";
 
 export default function Home() {
   const { navigateTo, navigateBack, prefetchRoute } = useRouterHook();
@@ -198,7 +198,7 @@ export default function Home() {
         <WorkExperience />
 
         {/* Projects Section */}
-        <ProjectCarousel
+        <FeaturedProjects
           projects={[
             {
               id: "recipe-app",
