@@ -1,4 +1,9 @@
+import { withPayload } from '@payloadcms/next/withPayload'
+
 let userConfig = undefined
+
+
+
 try {
   // try to import ESM first
   userConfig = await import('./v0-user-next.config.mjs')
@@ -48,4 +53,4 @@ if (userConfig) {
   }
 }
 
-export default nextConfig
+export default withPayload(nextConfig) 
