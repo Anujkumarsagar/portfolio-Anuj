@@ -2,13 +2,15 @@ import sharp from 'sharp'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
+import { Projects } from './payload/collections/Projects'
+import { Users } from './payload/collections/Users'
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [],
+  collections: [Users, Projects],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || '',
@@ -21,5 +23,5 @@ export default buildConfig({
   // make sure to install it and pass it to the config.
   // This is optional - if you don't need to do these things,
   // you don't need it!
-//   sharp,
+  sharp,
 })
