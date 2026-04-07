@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 interface Project {
@@ -18,19 +17,21 @@ interface FloatingElementsSectionProps {
 }
 
 export default function FloatingElementsSection({ projects }: FloatingElementsSectionProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  // Floating animation variants for staggered movement
+  const floatingVariants = {
+    animate: (i: number) => ({
+      y: [0, -20, 0],
+      x: [0, i % 2 === 0 ? 10 : -10, 0],
+      transition: {
+        duration: 6 + i,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    }),
+  };
 
   return (
-    <section ref={containerRef} className="relative py-20 px-4 overflow-hidden">
+    <section className="relative py-20 px-4 overflow-hidden">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -50,7 +51,9 @@ export default function FloatingElementsSection({ projects }: FloatingElementsSe
         <div className="relative h-[800px] md:h-[600px]">
           {/* Floating Cards */}
           <motion.div
-            style={{ y: y1 }}
+            variants={floatingVariants}
+            animate="animate"
+            custom={0}
             className="absolute top-0 left-0 w-72 h-64 rounded-2xl overflow-hidden border border-border shadow-xl hover:shadow-2xl transition-shadow"
           >
             {projects[0] && (
@@ -72,7 +75,9 @@ export default function FloatingElementsSection({ projects }: FloatingElementsSe
           </motion.div>
 
           <motion.div
-            style={{ y: y2 }}
+            variants={floatingVariants}
+            animate="animate"
+            custom={1}
             className="absolute top-32 right-0 w-80 h-72 rounded-2xl overflow-hidden border border-border shadow-xl hover:shadow-2xl transition-shadow"
           >
             {projects[1] && (
@@ -94,7 +99,9 @@ export default function FloatingElementsSection({ projects }: FloatingElementsSe
           </motion.div>
 
           <motion.div
-            style={{ y: y3 }}
+            variants={floatingVariants}
+            animate="animate"
+            custom={2}
             className="absolute bottom-20 left-1/4 w-64 h-60 rounded-2xl overflow-hidden border border-border shadow-xl hover:shadow-2xl transition-shadow"
           >
             {projects[2] && (
@@ -116,7 +123,9 @@ export default function FloatingElementsSection({ projects }: FloatingElementsSe
           </motion.div>
 
           <motion.div
-            style={{ y: y4 }}
+            variants={floatingVariants}
+            animate="animate"
+            custom={3}
             className="absolute bottom-32 right-1/4 w-72 h-68 rounded-2xl overflow-hidden border border-border shadow-xl hover:shadow-2xl transition-shadow"
           >
             {projects[3] && (
