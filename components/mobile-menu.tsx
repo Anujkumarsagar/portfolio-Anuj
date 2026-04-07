@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
 import { X } from "lucide-react"
+import { navItems } from "@/lib/data"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -22,7 +23,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <Link href="#" onClick={onClose} className="hover:text-gray-300 transition-colors">
           Home
         </Link>
-        <Link href="#about" onClick={onClose} className="hover:text-gray-300 transition-colors">
+        {/* <Link href="#about" onClick={onClose} className="hover:text-gray-300 transition-colors">
           About
         </Link>
         <Link href="#projects" onClick={onClose} className="hover:text-gray-300 transition-colors">
@@ -33,7 +34,15 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         </Link>
         <Link href="#contacts" onClick={onClose} className="hover:text-gray-300 transition-colors">
           Contacts
-        </Link>
+        </Link> */}
+
+        {
+          navItems.map((link) => (
+            <Link key={link.id} href={link.link} onClick={onClose} className="hover:text-gray-300 transition-colors">
+              {link.label}
+            </Link>
+          ))
+        }
       </nav>
     </div>
   )

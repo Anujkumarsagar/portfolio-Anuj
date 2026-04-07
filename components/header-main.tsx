@@ -37,7 +37,7 @@ export default function MainHeader({ className }: {
     //     sleep(500);
     // }, []);
 
-    
+
 
     function handleMobileNav() {
         if (!circleRef.current) return;
@@ -80,7 +80,7 @@ export default function MainHeader({ className }: {
                         </div>
                     ))
                 }
-                
+
                 {/* <div className="relative inline-flex group">
                     <div className="absolute opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500  rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
                     <Link
@@ -158,7 +158,7 @@ export default function MainHeader({ className }: {
                             <X size={24} />
                         </button>
                         <nav className="bg-gray-900 p-24 rounded-3xl flex flex-col space-y-4 transition-all duration-500 ease-in-out transform">
-                            <Link
+                            {/* <Link
                                 href="#about"
                                 onClick={handleMobileNav}
                                 className="relative inline-flex group w-full"
@@ -213,10 +213,26 @@ export default function MainHeader({ className }: {
                                 <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
                                     4. Links
                                 </span>
-                            </div>
+                            </div> */}
+                            {
+                                navItems.map((item, index) => (
+                                    <Link
+                                        key={index}
+                                        href={item.link}
+                                        onClick={handleMobileNav}
+                                        className="relative inline-flex group w-full"
+                                    >
+                                        <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                                        <span className="relative text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-lg px-4 py-2 bg-gray-900 rounded-xl w-full text-center">
+                                            {item.label}
+                                        </span>
+                                    </Link>
+                                ))
+                            }
                         </nav>
                     </div>
                 )}
+
             </div>
         </header>
     )
