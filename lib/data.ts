@@ -14,7 +14,7 @@ export const navItems = [
   {
     id: 3,
     label: "Contact",
-    link: "/contact",
+    link: "#contact",
   },
   {
     id: 4,
