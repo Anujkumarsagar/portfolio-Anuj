@@ -45,7 +45,7 @@ export default function InfiniteScrollContainer({
   }, [onScroll]);
 
   return (
-    <div className="relative w-full">
+    <>
       {/* Scroll indicator bar */}
       <motion.div
         className="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary via-primary to-primary/50 z-50"
@@ -70,8 +70,10 @@ export default function InfiniteScrollContainer({
         />
       )}
 
-      {/* Main content */}
-      {children}
+      <div className="relative w-full">
+        {/* Main content */}
+        {children}
+      </div>
 
       {/* Scroll-to-top button */}
       <motion.button
@@ -100,6 +102,6 @@ export default function InfiniteScrollContainer({
           />
         </svg>
       </motion.button>
-    </div>
+    </>
   );
 }
