@@ -21,6 +21,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import useRouterHook from '@/hooks/use-router';
+import { navItems } from '@/lib/data';
 // import { sleep } from '@/app/[website]/articles/page';
 
 
@@ -35,6 +36,8 @@ export default function MainHeader({ className }: {
     // useEffect(() => {
     //     sleep(500);
     // }, []);
+
+    
 
     function handleMobileNav() {
         if (!circleRef.current) return;
@@ -66,16 +69,19 @@ export default function MainHeader({ className }: {
                 </h2>
             </div>
             <nav className="hidden md:flex space-x-6">
-                <div className="relative inline-flex group">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                    <Link
-                        href="#about"
-                        className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded"
-                    >
-                        About
-                    </Link>
-                </div>
-                <div className="relative inline-flex group">
+
+                {
+                    navItems.map((item) => (
+                        <div key={item.id} className="relative inline-flex group">
+                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
+                            <Link href={item.link} className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
+                                {item.label}
+                            </Link>
+                        </div>
+                    ))
+                }
+                
+                {/* <div className="relative inline-flex group">
                     <div className="absolute opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500  rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
                     <Link
                         href="/projects"
@@ -110,7 +116,7 @@ export default function MainHeader({ className }: {
                     >
                         Contacts
                     </Link>
-                </div>
+                </div> */}
             </nav>
             <div className="z-20 flex items-center space-x-2">
                 <span>En</span>

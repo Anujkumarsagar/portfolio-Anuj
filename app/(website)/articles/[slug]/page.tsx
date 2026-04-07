@@ -1,27 +1,63 @@
-"use client"
-
 import { notFound } from 'next/navigation';
 import { ArticleView } from '@/components/ArticleView';
-import { articles } from '@/data/articles';
-import { Suspense } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import useRouterHook from '@/hooks/use-router';
+import { Suspense } from 'react'; 
+import { getPayload } from "payload";
+import config from "@payload-config";
+import { Metadata } from 'next';
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const slug = (await params).slug;
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: 'articles',
+    where: {
+      slug: {
+        equals: slug,
+      }
+    }
+  });
+  
+  if (docs.length === 0) return { title: 'Article not found' };
+  
+  return {
+    title: docs[0].title,
+    description: docs[0].description,
+  }
 }
 
-export default function ArticlePage ({ params: { slug} }: PageProps) {
+export const dynamic = 'force-dynamic'
 
-  // Find the article by matching the slug
-  const article =  articles.find((article) => article.slug === slug);
+export default async function ArticlePage ({params}: {params: Promise<{slug: string}>}) {
+  const slug = (await params).slug;
 
-  if (!article) {
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: 'articles',
+    where: {
+      slug: {
+        equals: slug,
+      }
+    }
+  });
+
+  const payloadArticle = docs[0] as any;
+
+  if (!payloadArticle) {
     notFound();
+  } 
+
+  const article = {
+    id: payloadArticle.id,
+    title: payloadArticle.title,
+    description: payloadArticle.description,
+    date: payloadArticle.date,
+    readTime: payloadArticle.readTime,
+    content: payloadArticle.content_html || "",
+    category: payloadArticle.category,
+    image: payloadArticle.image || "https://images.unsplash.com/photo-1460925895917-aaf4b51baea8?q=80&w=2700&auto=format&fit=crop",
+    slug: payloadArticle.slug,
+    embedurl: payloadArticle.embedurl || "",
   }
-  const { navigateBack } = useRouterHook()
 
   return (
     <Suspense >

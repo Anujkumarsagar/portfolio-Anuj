@@ -22,7 +22,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import ArticlesSlider from "@/components/cards/ArticlesSlider";
 import { motion } from "framer-motion";
-import { sleep } from "./articles/page";
+const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 import { skills, tags } from "@/data/tags";
 import useRouterHook from "@/hooks/use-router";
 import MainHeader from "@/components/header-main";
@@ -111,8 +111,8 @@ export default function Home() {
 
                 <Link
                   target="_blank"
-                  href="https://drive.google.com/file/d/1l1jppJO8peB3spozXwFwxpzFWG0LnhSO/view?usp=sharing"
-                  download="Anujkumar_Resume_FullStack_2025.pdf"
+                  href="https://drive.google.com/file/d/1hO-lsgYEbO1atb3UGm7vuhveib2QdWzC/view?usp=sharing"
+                  download="Anujkumar_FullStackDeveloper_Resume.pdf"
                 >
                   <Download
                     size={30}

@@ -4,13 +4,15 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import { Projects } from './payload/collections/Projects'
 import { Users } from './payload/collections/Users'
+import { Articles } from './payload/collections/Articles'
+import { Media } from './payload/collections/Media'
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Users, Projects],
+  collections: [Users, Projects, Articles, Media],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || '',
