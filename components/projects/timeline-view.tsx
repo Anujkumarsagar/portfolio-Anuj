@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Github, ExternalLink } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -9,6 +10,8 @@ interface Project {
   description: string;
   image: string;
   link: string;
+  github: string;
+  githubBackend: string;
   tags: string[];
 }
 
@@ -35,13 +38,13 @@ export default function TimelineView({ projects }: TimelineViewProps) {
       x: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   };
 
   return (
-    <section className="relative py-20 px-4 bg-background/50">
+    <section className="relative py-20 px-4 bg-black">
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -50,11 +53,11 @@ export default function TimelineView({ projects }: TimelineViewProps) {
           viewport={{ once: false }}
           className="mb-12 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bungee mb-4 text-white">
             Timeline
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A journey through my projects with animated timeline
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            All projects, one after another
           </p>
         </motion.div>
 
@@ -78,21 +81,21 @@ export default function TimelineView({ projects }: TimelineViewProps) {
                   whileInView={{ scale: 1 }}
                   transition={{ duration: 0.4 }}
                   viewport={{ once: false }}
-                  className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold z-10 relative"
+                  className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black font-bold z-10 relative"
                 >
                   {index + 1}
                 </motion.div>
                 {index < projects.length - 1 && (
-                  <div className="w-1 flex-1 bg-gradient-to-b from-primary to-primary/30 min-h-32" />
+                  <div className="w-1 flex-1 bg-gradient-to-b from-white to-gray-800 min-h-32" />
                 )}
               </div>
 
               {/* Content card */}
               <div className="flex-1 pb-8 md:pb-0">
-                <motion.div className="group relative rounded-lg border border-border bg-card p-6 hover:border-primary/50 transition-all duration-300">
+                <motion.div className="group relative squircle-a-20 border border-gray-800 bg-gray-900 p-6 hover:border-gray-600 transition-all duration-300">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Image */}
-                    <div className="md:col-span-1 h-48 md:h-full rounded-lg overflow-hidden bg-secondary relative">
+                    <div className="md:col-span-1 h-48 md:h-full squircle-a-15 overflow-hidden bg-gray-800 relative">
                       <Image
                         src={project.image}
                         alt={project.title}
@@ -106,10 +109,10 @@ export default function TimelineView({ projects }: TimelineViewProps) {
                     {/* Content */}
                     <div className="md:col-span-2 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                        <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-gray-300 transition-colors">
                           {project.title}
                         </h3>
-                        <p className="text-muted-foreground mb-4 line-clamp-3">
+                        <p className="text-gray-400 mb-4 line-clamp-3">
                           {project.description}
                         </p>
                       </div>
@@ -119,31 +122,53 @@ export default function TimelineView({ projects }: TimelineViewProps) {
                           {project.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                              className="text-xs px-3 py-1 squircle-a-full bg-gray-800 text-gray-300 border border-gray-700"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
 
-                        {project.link && (
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link"
-                          >
-                            Explore Project
-                            <span className="ml-2 group-hover/link:translate-x-1 transition-transform">
-                              →
-                            </span>
-                          </a>
-                        )}
+                        <div className="flex flex-wrap gap-2">
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 squircle-a-full bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white transition-all"
+                            >
+                              <Github className="w-3.5 h-3.5" />
+                              {project.githubBackend ? 'Frontend' : 'GitHub'}
+                            </a>
+                          )}
+                          {project.githubBackend && (
+                            <a
+                              href={project.githubBackend}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 squircle-a-full bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white transition-all"
+                            >
+                              <Github className="w-3.5 h-3.5" />
+                              Backend
+                            </a>
+                          )}
+                          {project.link && (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 squircle-a-full bg-white text-black font-medium hover:bg-gray-200 transition-all"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              Live
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 squircle-a-20 pointer-events-none" />
                 </motion.div>
               </div>
             </motion.div>

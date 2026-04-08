@@ -48,7 +48,7 @@ export default function InfiniteScrollContainer({
     <>
       {/* Scroll indicator bar */}
       <motion.div
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary via-primary to-primary/50 z-50"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-white via-gray-400 to-gray-600 z-50"
         style={{ width: `${scrollProgress * 100}%` }}
         initial={{ width: '0%' }}
         animate={{ width: `${scrollProgress * 100}%` }}
@@ -58,7 +58,7 @@ export default function InfiniteScrollContainer({
       {/* Scroll indicator circle */}
       {isScrolling && (
         <motion.div
-          className="fixed bottom-8 right-8 w-3 h-3 rounded-full bg-primary z-40"
+          className="fixed bottom-8 right-8 w-3 h-3 rounded-full bg-white z-40"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [1, 0.5, 1],
@@ -71,7 +71,6 @@ export default function InfiniteScrollContainer({
       )}
 
       <div className="relative w-full">
-        {/* Main content */}
         {children}
       </div>
 
@@ -83,7 +82,7 @@ export default function InfiniteScrollContainer({
           opacity: scrollProgress > 0.2 ? 1 : 0,
           y: scrollProgress > 0.2 ? 0 : 20,
         }}
-        className="fixed bottom-8 left-8 z-40 p-3 rounded-full bg-primary text-white shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all disabled:opacity-50"
+        className="fixed bottom-8 left-8 z-40 p-3 squircle-a-full bg-gray-900 border border-gray-700 text-white shadow-lg hover:shadow-xl hover:bg-gray-800 hover:border-gray-600 transition-all disabled:opacity-50"
         style={{
           pointerEvents: scrollProgress > 0.2 ? 'auto' : 'none',
         }}

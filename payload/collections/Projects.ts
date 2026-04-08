@@ -29,6 +29,16 @@ export const Projects: CollectionConfig = {
     {
       name: 'githubUrl',
       type: 'text',
+      admin: {
+        description: 'Primary GitHub repository URL (or frontend repo if split)',
+      },
+    },
+    {
+      name: 'githubBackendUrl',
+      type: 'text',
+      admin: {
+        description: 'Backend GitHub repository URL (only if separate from frontend)',
+      },
     },
     {
       name: 'liveUrl',

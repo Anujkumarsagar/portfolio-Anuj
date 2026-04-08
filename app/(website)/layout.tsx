@@ -5,6 +5,7 @@ import { Inter, Space_Mono } from "next/font/google"
 import Footer from "@/components/Footer/FooterSec"
 import { Toaster } from "@/components/ui/toaster"
 import LoaderOfLink from '@/components/LoaderOfLink'
+import LenisProvider from '@/components/lenis-provider'
 
 
 const inter = Inter({
@@ -50,12 +51,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang="en">
 
       <body className={`${inter.variable} ${spaceMono.variable} font-sans w-full `}>
-        <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
-          {children}
-        </LoaderOfLink>
+        <LenisProvider>
+          <LoaderOfLink footer={<Footer />} toaster={<Toaster />}>
+            {children}
+          </LoaderOfLink>
+        </LenisProvider>
       </body>
 
 
