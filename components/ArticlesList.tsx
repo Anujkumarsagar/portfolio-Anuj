@@ -10,6 +10,7 @@ import { SubscribeNewsLetter } from "@/services/SubscribeNewslatter"
 import { toast } from "@/hooks/use-toast"
 import { Loader } from "@react-three/drei"
 import { Article } from "@/types/article"
+import { usePushNotifications } from "@/hooks/usePushNotifications"
 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
@@ -25,6 +26,8 @@ export default function ArticlesList({ articles }: { articles: Article[] }) {
     message: string;
   }>(SubscribeNewsLetter as any, initialState);
 
+  const { requestPermissionAndSubscribe, isSupportedBrowser } = usePushNotifications();
+
   useEffect(() => {
     if (!state.message) return;
     if (state.status) {
@@ -33,6 +36,10 @@ export default function ArticlesList({ articles }: { articles: Article[] }) {
         description: "Subscribed Successfully",
         variant: "default",
       });
+      // Trigger push notification request if supported
+      if (isSupportedBrowser) {
+        requestPermissionAndSubscribe();
+      }
     } else {
       toast({
         title: "Error",
@@ -40,7 +47,7 @@ export default function ArticlesList({ articles }: { articles: Article[] }) {
         variant: "destructive",
       })
     }
-  }, [state])
+  }, [state, isSupportedBrowser, requestPermissionAndSubscribe])
 
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")

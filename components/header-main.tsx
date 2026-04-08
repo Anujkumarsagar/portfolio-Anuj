@@ -59,7 +59,7 @@ export default function MainHeader({ className }: {
         });
     }
     return (
-        <header className={`relative  ${className}  flex justify-between items-center mb-10`}>
+        <header className={`relative  ${className} z-10 flex justify-between items-center mb-10`}>
             <div onClick={() => navigateTo("/")} className="cursor-cell">
                 <h2 className=" h-fit md:scale-110  font-bungee text-lg border flex border-white px-3 py-1 rounded-full">
                     <Image src={"favicon.ico"} width={36} height={36} alt="Logo" />

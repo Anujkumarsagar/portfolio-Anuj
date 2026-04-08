@@ -18,8 +18,9 @@ import {
   Redo,
   GithubIcon,
   Code2,
+  Loader2Icon,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import ArticlesSlider from "@/components/cards/ArticlesSlider";
 import { motion } from "framer-motion";
 const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -29,6 +30,15 @@ import MainHeader from "@/components/header-main";
 import WorkExperience from "@/components/home/work-experience";
 import AboutMe from "@/components/home/about-me";
 import ProjectSection from "@/components/home/project-section";
+import ArticlesList from "@/components/ArticlesList";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { SubscribeNewsLetter } from "@/services/SubscribeNewslatter";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
+import { toast } from "@/hooks/use-toast";
+
+
+const initialState = { status: false, message: "", data: "" };
+
 
 export default function Home() {
   const { navigateTo, navigateBack, prefetchRoute } = useRouterHook();
@@ -36,9 +46,39 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [showLinks, setShowLinks] = useState<boolean>(false);
 
+
+  const [state, formAction, isPending] = useActionState<{
+    status: boolean;
+    data: SMTPTransport.SentMessageInfo | string;
+    message: string;
+  }>(SubscribeNewsLetter as any, initialState);
+
+  const { requestPermissionAndSubscribe, isSupportedBrowser } = usePushNotifications();
+
   useEffect(() => {
     sleep(500);
   }, []);
+
+  useEffect(() => {
+    if (!state.message) return;
+    if (state.status) {
+      toast({
+        title: "Success",
+        description: "Subscribed Successfully",
+        variant: "default",
+      });
+      // Request push notification subscription
+      if (isSupportedBrowser) {
+        requestPermissionAndSubscribe();
+      }
+    } else {
+      toast({
+        title: "Error",
+        description: state.message || "Something went wrong",
+        variant: "destructive",
+      });
+    }
+  }, [state, isSupportedBrowser, requestPermissionAndSubscribe]);
 
   function handleMobileNav() {
     if (!circleRef.current) return;
@@ -60,7 +100,7 @@ export default function Home() {
     });
   }
 
-  
+
 
   return (
     <main className=" text-white min-h-screen ovevrflow-x-hidden">
@@ -205,13 +245,34 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="p-6 md:p-10 section-gradient bento-section" 
+          className="p-6 md:p-10 section-gradient bento-section"
         >
-          <h2 className="  text-5xl md:text-6xl font-bungee mb-10">Articles</h2>
+          <h2 className="  text-5xl md:text-6xl font-bungee mb-10">New Letters</h2>
 
-          <div className="w-full">
-            <ArticlesSlider />
-          </div>
+          <section className="mt-24 relative p-8 md:p-12 rounded-3xl overflow-hidden section-gradient">
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-gray-800/20 blur-3xl -z-10"></div>
+
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl  mb-6">Stay updated with my latest articles</h2>
+              <p className="text-gray-300 mb-8">
+                Subscribe to my newsletter to receive notifications about new articles, insights, and updates.
+              </p>
+
+              <form action={formAction} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  className="flex-grow bg-gray-900/60 border border-gray-800 rounded-full py-3 px-6 focus:outline-none focus:ring-2 focus:ring-white/20"
+                />
+                <button type="submit" disabled={isPending} className={"bg-white text-black rounded-full py-3 px-6  hover:bg-gray-200 transition-colors"}>
+                  {isPending ? <div><Loader2Icon className="animate-spin h-5 w-5 transition-all duration-1000 ease-linear" /></div> : "Subscribe"}
+                </button>
+              </form>
+            </div>
+          </section>
         </motion.section>
 
         {/* Contacts Section */}

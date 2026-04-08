@@ -3,6 +3,8 @@
 
 import { transporter } from "@/lib/nodemailer";
 import { htmlTemplate, newLetterTemplate } from "./template";
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
 
 
 export async function SubscribeNewsLetter(prevState: any, formData: FormData) {
@@ -41,8 +43,19 @@ export async function SubscribeNewsLetter(prevState: any, formData: FormData) {
         html: htmlContentForYOU,
       })
 
+    const payload = await getPayload({ config: configPromise });
+
+    await payload.create({
+      collection: "subscrib-news-letters",
+      data: {
+        email,
+      },
+
+    });
+
     return { status: true, message: "Email Sent", data: { info, sendEmailToUser } };
-  } catch (error) {
-    return { status: false, message: "Failed to send email", data: null };
+  } catch (error: any) {
+    console.error("Subscription Error Output:", error);
+    return { status: false, message: "Failed to send email. Check terminal for errors.", data: null };
   }
 }

@@ -6,13 +6,15 @@ import { Projects } from './payload/collections/Projects'
 import { Users } from './payload/collections/Users'
 import { Articles } from './payload/collections/Articles'
 import { Media } from './payload/collections/Media'
+import { SubscribNewsLetters } from './payload/collections/SubscribNewsLetters'
+import { PushSubscribers } from './payload/collections/PushSubscribers'
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Users, Projects, Articles, Media],
+  collections: [Users, Projects, Articles, Media, SubscribNewsLetters, PushSubscribers],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || '',
