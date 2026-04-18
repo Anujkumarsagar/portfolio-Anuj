@@ -282,6 +282,36 @@ html {
   background: hsl(251, 100%, 60%);
 }
 
+/* Article content color fix */
+.article-content,
+.article-content * {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Article code block visibility fix */
+.article-content blockquote,
+.article-content pre {
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  border-left: 4px solid hsl(var(--primary));
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.article-content blockquote code,
+.article-content pre code,
+.article-content blockquote,
+.article-content pre {
+  color: hsl(var(--foreground)) !important;
+}
+
+.article-content code {
+  background: transparent !important;
+}
+
 /* Motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

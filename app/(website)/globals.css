@@ -119,52 +119,208 @@ body {
   }
 }
 
-
-
-code{
-  /* Keep long inline code horizontally scrollable */
-  overflow-x: auto;
-  width: 100%;
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
-  background-color: white;
-  color: black;
+/* Article Section Styling */
+.article-content,
+.article-content p,
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6,
+.article-content ol,
+.article-content ul,
+.article-content li,
+.article-content strong {
+  color: rgb(var(--foreground-rgb)) !important;
+  line-height: 1.9;
+  word-spacing: 0.08em;
 }
 
-/* Make block code (<pre><code>...) scroll independently so only the code area scrolls
-   - limit height so very long code doesn't push the entire page
-   - allow both vertical and horizontal scrolling inside the code block
-   - style in a dark-friendly way when .dark is present */
-.prose pre,
-pre {
-  max-height: 48vh; /* limit height to viewport fraction */
-  overflow: auto; /* allow vertical and horizontal scroll inside the block */
-  margin: 1rem;
-  border-radius: 0.5rem;
-  background-color: #ffffff; /* light fallback */
-  color: #000000;
-  border: 1px solid rgba(0,0,0,0.06);
+.article-content a {
+  color: hsl(var(--primary)) !important;
 }
 
-.prose pre code,
-pre code {
-  display: block; /* ensure code fills the pre and wraps only when intended */
-  white-space: pre; /* preserve formatting */
+
+.article-content ol li,
+.article-content ul li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+/* Code blocks in articles */
+.article-content blockquote,
+.article-content pre {
+  background: #0b0b0b;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin: 2rem ;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(var(--foreground-rgb));
   overflow-x: auto;
-  margin: 5px 5px;
-  background: transparent; /* parent pre provides background */
+  position: relative;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.article-content blockquote::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27ca3f;
+}
+
+.article-content blockquote code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
   color: inherit;
 }
 
-/* Dark mode overrides */
-.dark .prose pre,
-.dark pre {
-  background-color: #0b0b0b;
-  color: #e5e7eb;
-  border: 1px solid rgba(255,255,255,0.04);
+/* Inline code in articles */
+.article-content p code,
+.article-content li code {
+  background: #0b0b0b;
+  color: rgb(var(--foreground-rgb));
+  padding: 0.25rem 0.5rem;
+  border-radius: 6%;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  border: 1px solid hsl(var(--border));
 }
 
-.dark code {
-  background-color: #111827;
-  color: #e5e7eb;
+/* Links in articles */
+.article-content a {
+  color: #6fb1ff !important;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(111, 177, 255, 0.6);
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  font-weight: 600;
+}
+
+.article-content a:hover {
+  color: #a3d4ff;
+  text-decoration-color: rgba(163, 212, 255, 0.85);
+}
+
+/* Headings in articles */
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: 0.5rem;
+}
+
+.article-content h4 {
+  font-size: 1.125rem;
+  color: hsl(var(--primary));
+}
+
+/* Lists in articles */
+.article-content ol,
+.article-content ul {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  padding-left: 0;
+}
+
+.article-content ol {
+  counter-reset: article-list;
+}
+
+.article-content ol li,
+.article-content ul li {
+  margin-bottom: 0.9rem;
+  line-height: 1.8;
+  color: rgb(var(--foreground-rgb)) !important;
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.article-content ul li {
+  list-style: none;
+}
+
+.article-content ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  color: #6fb1ff;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.article-content ol li {
+  list-style: none;
+  counter-increment: article-list;
+}
+
+.article-content ol li::before {
+  content: counter(article-list) '.';
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  color: #6fb1ff;
+  font-weight: 700;
+  min-width: 1rem;
+  text-align: right;
+}
+
+/* Horizontal rules in articles */
+.article-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, hsl(var(--border)), transparent);
+  margin: 3rem 0;
+  position: relative;
+}
+
+.article-content hr::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 1px;
+  background: hsl(var(--primary));
+}
+
+/* Responsive design for articles */
+@media (max-width: 768px) {
+  .article-content {
+    padding: 1rem;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .article-content blockquote {
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+  }
 }

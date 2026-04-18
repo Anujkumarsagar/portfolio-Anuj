@@ -15,6 +15,8 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
   const { navigateBack, navigateTo } = useRouterHook()
   const [menuOpen, setMenuOpen] = useState(false)
 
+  console.log(" article.content: ",  article.content)
+
   useEffect(() => {
     // Prevent background scroll when menu is open
     if (menuOpen) document.body.classList.add('no-scroll')
@@ -56,9 +58,26 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
 
         <p className="text-xl text-gray-300 mb-8">{article.description}</p>
 
-        <div
-          className="border-t overflow-hidden border-gray-800  py-8 mt-8 prose-headings:font-bungee prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-ol:text-gray-300"
+        <div 
+          className="article-content"
           dangerouslySetInnerHTML={{ __html: article.content }}
+          // ref={(el) => {
+          //   if (el) {
+          //     // Basic syntax highlighting for code blocks
+          //     const codeBlocks = el.querySelectorAll('blockquote code');
+          //     codeBlocks.forEach((codeBlock) => {
+          //       const text = codeBlock.textContent || '';
+          //       // Simple highlighting for JavaScript keywords
+          //       let highlighted = text
+          //         .replace(/\b(const|let|var|function|return|if|else|for|while|class|extends|import|export|from|async|await|try|catch)\b/g, '<span style="color: #c792ea">$1</span>') // keywords
+          //         .replace(/(["'`])(.*?)\1/g, '<span style="color: #c3e88d">$&</span>') // strings
+          //         .replace(/(\/\/.*$)/gm, '<span style="color: #546e7a">$1</span>') // comments
+          //         .replace(/\b(\d+(\.\d+)?)\b/g, '<span style="color: #f78c6c">$1</span>') // numbers
+          //         .replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g, '<span style="color: #82aaff">$1</span>('); // function calls
+          //       codeBlock.innerHTML = highlighted;
+          //     });
+          //   }
+          // }}
         />
       </article>
 
@@ -109,7 +128,7 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
         </div>
       )}
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -119,7 +138,7 @@ export const ArticleView: FC<ArticleViewProps> = ({ article }) => {
         <div className="relative w-full  rounded-3xl overflow-hidden">
           <iframe src={`${article.embedurl}`} height="718" width="504" frameborder="1" allowfullscreen="true" title="Embedded post"></iframe>
         </div>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 };
