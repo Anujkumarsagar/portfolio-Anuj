@@ -39,7 +39,7 @@ const WorkExperience = (props: Props) => {
           <div></div>
           <div>
             <h3 className="font-medium">Revenzatech Private Limited</h3>
-            <p className="text-sm text-gray-400">Frontend Developer</p>
+            <p className="text-sm text-gray-400">Full Stack Developer</p>
           </div>
           <div></div>
           <div className="justify-self-center">
