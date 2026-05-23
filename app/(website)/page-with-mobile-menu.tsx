@@ -22,20 +22,20 @@ export default function MobileNav() {
             </h2>
           </div>
           <nav className="hidden md:flex space-x-6">
-            <Link href="#about" className="hover:text-gray-300 transition-colors">
-              About
+            <Link href="#about" className="btn-primary px-6 py-2.5">
+              <span className="text-sm font-bold tracking-wide">About</span>
             </Link>
-            <Link href="#projects" className="hover:text-gray-300 transition-colors">
-              Projects
+            <Link href="#projects" className="btn-primary px-6 py-2.5">
+              <span className="text-sm font-bold tracking-wide">Projects</span>
             </Link>
-            <Link href="/articles" className="hover:text-gray-300 transition-colors">
-              Articles
+            <Link href="/articles" className="btn-primary px-6 py-2.5">
+              <span className="text-sm font-bold tracking-wide">Articles</span>
             </Link>
-            <Link href="#contacts" className="hover:text-gray-300 transition-colors">
-              Contacts
+            <Link href="#contacts" className="btn-primary px-6 py-2.5">
+              <span className="text-sm font-bold tracking-wide">Contacts</span>
             </Link>
-            <Link href="/links" className="hover:text-gray-300 transition-colors">
-              Links
+            <Link href="/links" className="btn-primary px-6 py-2.5">
+              <span className="text-sm font-bold tracking-wide">Links</span>
             </Link>
           </nav>
           <div className="flex items-center space-x-2">

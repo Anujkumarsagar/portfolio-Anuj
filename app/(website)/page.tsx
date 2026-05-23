@@ -104,6 +104,24 @@ export default function Home() {
 
   return (
     <main className=" text-white min-h-screen ovevrflow-x-hidden">
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Anuj Kumar",
+            url: "https://cvanuj.vercel.app", // TODO: Replace with your actual domain
+            jobTitle: "Full-stack Developer",
+            sameAs: [
+              "https://github.com/Anujkumarsagar",
+              "https://linkedin.com/in/Anujkumarsagar",
+              "https://www.instagram.com/2_._anuj_._2/"
+            ]
+          })
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Main Header Section */}
         <motion.section
@@ -121,7 +139,7 @@ export default function Home() {
           <div className=" hero bg-black-[80%] lg:grid lg:grid-cols-2 lg:gap-10">
             <Image
               src="../assets/png/image.png"
-              alt="Developer photo"
+              alt="Anuj Kumar - Full Stack Developer"
               width={800}
               height={800}
               loading="eager"
@@ -161,9 +179,10 @@ export default function Home() {
                   />
                 </Link>
               </div>
-              <span className="absolute z-10 top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
+              <span className="absolute  top-[45%] right-10 inline-flex item-center justify-center flex-col md:fixed md:bottom-24 md:scale-125 md:left-8 md:top-auto md:right-auto mb-10">
                 <Link
                   href="https://github.com/Anujkumarsagar"
+                  aria-label="GitHub Profile"
                   className="relative inline-flex group mb-4"
                 >
                   <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
@@ -171,6 +190,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://linkedin.com/in/Anujkumarsagar"
+                  aria-label="LinkedIn Profile"
                   className="relative inline-flex group mb-4"
                 >
                   <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
@@ -178,6 +198,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="mailto:anujkumarsagar62@gmail.com"
+                  aria-label="Email Anuj Kumar"
                   className="relative inline-flex group mb-4"
                 >
                   <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
@@ -185,6 +206,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://t.me/SoftwareEngineer6"
+                  aria-label="Telegram Profile"
                   className="relative inline-flex group mb-4"
                 >
                   <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
@@ -192,6 +214,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.instagram.com/2_._anuj_._2/"
+                  aria-label="Instagram Profile"
                   className="relative inline-flex group"
                 >
                   <div className="absolute -inset-px rounded-full bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500 opacity-70 blur-sm group-hover:opacity-100 group-hover:-inset-1"></div>
@@ -202,7 +225,7 @@ export default function Home() {
           </div>
 
           <div className="my-4 md:hidden w-fit flex items-end justify-between  h-32 relative">
-            <h1 className="text-7xl font-bungee">Link</h1>
+            <h2 className="text-7xl font-bungee">Link</h2>
             <Redo
               size={100}
               className="absolute -rotate-0 -right-[37%] top-[2%]  bottom-0"
@@ -211,7 +234,7 @@ export default function Home() {
 
           <Image
             src="./assets/png/14.png"
-            alt="Developer photo"
+            alt="Decorative spinning 3D shape"
             width={800}
             height={800}
             loading="eager"

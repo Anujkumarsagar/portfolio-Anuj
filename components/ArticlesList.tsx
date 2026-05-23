@@ -11,6 +11,7 @@ import { toast } from "@/hooks/use-toast"
 import { Loader } from "@react-three/drei"
 import { Article } from "@/types/article"
 import { usePushNotifications } from "@/hooks/usePushNotifications"
+import Link from "next/link"
 
 // Categories for filtering
 const categories = ["All", "Web Development", "Mobile Development", "Web Design", "UX Design"]
@@ -110,15 +111,11 @@ export default function ArticlesList({ articles }: { articles: Article[] }) {
           {/* Articles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <div
+              <Link
+                href={`/articles/${post.slug}`}
                 key={post.id}
-                role="link"
-                tabIndex={0}
-                onClick={() => navigateTo(`/articles/${post.slug}`)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") navigateTo(`/articles/${post.slug}`)
-                }}
-                className="group cursor-pointer"
+                className="group cursor-pointer block"
+                aria-label={`Read article: ${post.title}`}
               >
                 <article className="bg-gray-900 rounded-3xl overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-2">
                   <div className="relative h-56 w-full overflow-hidden">
@@ -162,7 +159,7 @@ export default function ArticlesList({ articles }: { articles: Article[] }) {
                     </div>
                   </div>
                 </article>
-              </div>
+              </Link>
             ))}
           </div>
 

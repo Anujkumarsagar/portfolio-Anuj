@@ -32,12 +32,49 @@ export default function MainHeader({ className }: {
     const circleRef = useRef<HTMLDivElement | null>(null);
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
     const [showLinks, setShowLinks] = useState<boolean>(false);
+    const [currentLang, setCurrentLang] = useState<string>('en');
+    
+    useEffect(() => {
+        // Parse the googtrans cookie to find the active language on load
+        const match = document.cookie.match(/googtrans=\/en\/([a-zA-Z-]{2,5})/);
+        if (match && match[1]) {
+            setCurrentLang(match[1]);
+        } else {
+            setCurrentLang('en');
+        }
 
-    // useEffect(() => {
-    //     sleep(500);
-    // }, []);
+        if (document.getElementById('google-translate-script')) return;
 
+        const script = document.createElement('script');
+        script.id = 'google-translate-script';
+        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        document.body.appendChild(script);
 
+        // Hide the default Google Translate UI frames and tooltips to keep your app looking clean
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .goog-te-banner-frame { display: none !important; }
+            body { top: 0 !important; }
+            .skiptranslate { display: none !important; }
+        `;
+        document.head.appendChild(style);
+
+        // @ts-ignore
+        window.googleTranslateElementInit = () => {
+            // @ts-ignore
+            new window.google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+        };
+    }, []);
+
+    const changeLanguage = (lang: string) => {
+        // Using 'de' here for German. If 'Ge' stands for Georgian, change 'de' to 'ka' below.
+        const targetLang = lang === 'en' ? '' : `/en/${lang}`;
+        document.cookie = `googtrans=${targetLang}; path=/`;
+        document.cookie = `googtrans=${targetLang}; domain=${window.location.hostname}; path=/`;
+        window.location.reload();
+    };
+    
 
     function handleMobileNav() {
         if (!circleRef.current) return;
@@ -58,69 +95,39 @@ export default function MainHeader({ className }: {
             return newState;
         });
     }
+
     return (
         <header className={`relative  ${className} z-10 flex justify-between items-center mb-10`}>
-            <div onClick={() => navigateTo("/")} className="cursor-cell">
+            <div id="google_translate_element" style={{ display: 'none' }}></div>
+            <Link href="/" className="cursor-cell block" aria-label="Home">
                 <h2 className=" h-fit md:scale-110  font-bungee text-lg border flex border-white px-3 py-1 rounded-full">
-                    <Image src="/favicon.ico" width={36} height={36} alt="Logo" />
+                    <Image src="/favicon.ico" width={36} height={36} alt="Anuj Kumar Portfolio Logo" />
                     <div className="h-fit pt-2">
                         NUJ
                     </div>
                 </h2>
-            </div>
+            </Link>
             <nav className="hidden md:flex space-x-6">
 
                 {
                     navItems.map((item) => (
-                        <div key={item.id} className="relative inline-flex group">
-                            <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                            <Link href={item.link} className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded">
-                                {item.label}
-                            </Link>
-                        </div>
+                        <Link key={item.id} href={item.link} className="btn-primary px-6 py-2.5">
+                            <span className="text-sm font-bold tracking-wide">{item.label}</span>
+                        </Link>
                     ))
                 }
-
-                {/* <div className="relative inline-flex group">
-                    <div className="absolute opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] transition-all duration-500  rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                    <Link
-                        href="/projects"
-                        className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded"
-                    >
-                        Project
-                    </Link>
-                </div>
-                <div className="relative inline-flex group">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                    <div
-                        onClick={() => navigateTo("/articles")}
-                        className="relative inline-flex  cursor-pointer items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded"
-                    >
-                        Articles
-                    </div>
-                </div>
-                <div className="relative inline-flex group">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                    <div
-                        onClick={() => navigateTo("/links")}
-                        className="relative inline-flex cursor-pointer items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded"
-                    >
-                        Links
-                    </div>
-                </div>
-                <div className="relative inline-flex group">
-                    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#30cfd0] via-[#c43ad6] to-[#fdc830] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-                    <Link
-                        href="#contacts"
-                        className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-800 rounded"
-                    >
-                        Contacts
-                    </Link>
-                </div> */}
             </nav>
             <div className="z-20 flex items-center space-x-2">
-                <span>En</span>
-                <button className="hidden z-20 md:block border border-gray-700 rounded-full px-2 py-1 text-xs">
+                <button
+                    onClick={() => changeLanguage("en")}
+                    className={`z-20 border rounded-full px-2 py-1 text-xs transition-colors ${currentLang === 'en' ? 'bg-white text-black border-white' : 'border-gray-700 hover:bg-white hover:text-black'}`}
+                >
+                    En
+                </button>
+                <button 
+                    onClick={() => changeLanguage("de")}
+                    className={`hidden z-20 md:block border rounded-full px-2 py-1 text-xs transition-colors ${currentLang === 'de' ? 'bg-white text-black border-white' : 'border-gray-700 hover:bg-white hover:text-black'}`}
+                >
                     Ge
                 </button>
                 <button
@@ -147,13 +154,13 @@ export default function MainHeader({ className }: {
                 </button>
                 <div
                     ref={circleRef}
-                    className="circle-mobile-nav relative sm:hidden md:hidden"
+                    className="circle-mobile-nav  relative sm:hidden md:hidden"
                 ></div>
                 {showLinks && (
                     <div className="fixed font-bungee fade-in inset-0 bg-[#010101] z-30 flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out">
                         <button
                             onClick={handleMobileNav}
-                            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+                            className="absolute bg-gray-900 rounded-full p-2 top-4 right-4 text-white hover:text-gray-300 transition-colors"
                         >
                             <X size={24} />
                         </button>

@@ -103,7 +103,7 @@ export default function ProjectCarousel({ projects }: { projects: Project[] }) {
                                             ))}
                                         </div>
                                         {project.link && (
-                                            <Link href={project.link} target="_blank" className="p-3 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full transition-colors flex-shrink-0">
+                                            <Link href={project.link} target="_blank" aria-label={`Visit ${project.title} live site`} className="p-3 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full transition-colors flex-shrink-0">
                                                 <ArrowUpRight size={20} strokeWidth={2} />
                                             </Link>
                                         )}
